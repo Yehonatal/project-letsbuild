@@ -1,0 +1,21 @@
+{
+    "name": "project-letsbuild",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "cd frontend && pnpm run dev && cd /backend && pnpm run dev",
+        "frontend:dev": "cd frontend && pnpm run dev",
+        "json-server": "cd frontend && json-server data/db.json --port 5000",
+        "backend:dev": "cd backend && pnpm run dev",
+        "build": "cd frontend && pnpm run build && cd /backend && pnpm run build"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "packageManager": "pnpm@10.10.0",
+    "devDependencies": {
+        "json-server": "1.0.0-beta.3"
+    }
+}
