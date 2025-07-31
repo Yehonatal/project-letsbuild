@@ -2,33 +2,34 @@ import api from '@/lib/axios'
 import type { IdeaType } from '@/types/types'
 
 export const fetchIdeas = async (): Promise<IdeaType[]> => {
-  const response = await api.get('/ideas')
-  return response.data
+    const response = await api.get('/ideas')
+    return response.data
 }
 
 export const fetchIdeaById = async (id: string): Promise<IdeaType> => {
-  const response = await api.get(`/ideas/${id}`)
-  return response.data
+    const response = await api.get(`/ideas/${id}`)
+    return response.data
 }
 
 export const createIdea = async (
-  newIdea: Omit<IdeaType, 'id' | 'createdAt' | 'upvotes' | 'views'>,
+    newIdea: Omit<IdeaType, 'id' | 'createdAt' | 'upvotes' | 'views'>,
 ): Promise<IdeaType> => {
-  const response = await api.post('/ideas', {
-    ...newIdea,
-    createdAt: new Date().toISOString(),
-    upvotes: 0,
-    views: 0,
-  })
-  return response.data
+    const response = await api.post('/ideas', {
+        ...newIdea,
+        createdAt: new Date().toISOString(),
+        upvotes: 0,
+        views: 0,
+    })
+    return response.data
 }
 export const updateIdea = async (
-  id: string,
-  updatedIdea: Partial<IdeaType>,
+    id: string,
+    updatedIdea: IdeaType,
 ): Promise<IdeaType> => {
-  const response = await api.put(`/ideas/${id}`, updatedIdea)
-  return response.data
+    const response = await api.put(`/ideas/${id}`, updatedIdea)
+    return response.data
 }
+
 export const deleteIdea = async (id: string): Promise<void> => {
-  await api.delete(`/ideas/${id}`)
+    await api.delete(`/ideas/${id}`)
 }

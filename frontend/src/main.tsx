@@ -6,11 +6,11 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import 'aos/dist/aos.css'
 // Create a new QueryClient instance
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false, // Disable automatic retries
+    defaultOptions: {
+        queries: {
+            retry: false, // Disable automatic retries
+        },
     },
-  },
 })
 
 // Import the generated route tree
@@ -21,33 +21,33 @@ import reportWebVitals from './reportWebVitals.ts'
 
 // Create a new router instance
 const router = createRouter({
-  routeTree,
-  context: { queryClient },
-  defaultPreload: 'intent',
-  scrollRestoration: true,
-  defaultStructuralSharing: true,
-  defaultPreloadStaleTime: 0,
+    routeTree,
+    context: { queryClient },
+    defaultPreload: 'intent',
+    scrollRestoration: true,
+    defaultStructuralSharing: true,
+    defaultPreloadStaleTime: 0,
 })
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router
-  }
+    interface Register {
+        router: typeof router
+    }
 }
 
 // Render the app
 const rootElement = document.getElementById('app')
 if (rootElement && !rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement)
-  root.render(
-    <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} position="bottom" />
-      </QueryClientProvider>
-    </StrictMode>,
-  )
+    const root = ReactDOM.createRoot(rootElement)
+    root.render(
+        <StrictMode>
+            <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router} />
+                <ReactQueryDevtools initialIsOpen={false} position="bottom" />
+            </QueryClientProvider>
+        </StrictMode>,
+    )
 }
 
 // If you want to start measuring performance in your app, pass a function
