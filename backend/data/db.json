@@ -1,280 +1,218 @@
-{
-  "ideas": [
+[
     {
-      "id": "8",
-      "verified": true,
-      "title": "Test Decentralized Book Club",
-      "summary": "Read and discuss books with global readers using Web3.",
-      "description": "A platform where users join book clubs powered by blockchain for governance, voting on next reads, and reward points via tokens. Integrated with NFTs for membership badges, and authors can airdrop exclusive content.",
-      "tags": [
-        "books",
-        "web3",
-        "community"
-      ],
-      "createdAt": "2025-05-01T10:30:00.000Z",
-      "difficulty": "hard",
-      "estimatedTime": "1-2 weeks",
-      "techStack": [
-        "React",
-        "Solidity",
-        "IPFS",
-        "TailwindCSS"
-      ],
-      "upvotes": 37,
-      "views": 190,
-      "author": {
-        "name": "Saba Teklu",
-        "avatarUrl": "https://i.pravatar.cc/150?img=68",
-        "githubUrl": "https://github.com/sabateklu"
-      },
-      "inspirationLink": "https://mirror.xyz/"
+        "id": "8",
+        "verified": true,
+        "title": "Test Decentralized Book Club",
+        "summary": "Read and discuss books with global readers using Web3.",
+        "description": "A platform where users join book clubs powered by blockchain for governance, voting on next reads, and reward points via tokens. Integrated with NFTs for membership badges, and authors can airdrop exclusive content.",
+        "tags": ["books", "web3", "community"],
+        "createdAt": "2025-05-01T10:30:00.000Z",
+        "difficulty": "hard",
+        "estimatedTime": "1-2 weeks",
+        "techStack": ["React", "Solidity", "IPFS", "TailwindCSS"],
+        "upvotes": 37,
+        "views": 190,
+        "author": {
+            "name": "Saba Teklu",
+            "avatarUrl": "https://i.pravatar.cc/150?img=68",
+            "githubUrl": "https://github.com/sabateklu"
+        },
+        "inspirationLink": "https://mirror.xyz/"
     },
     {
-      "title": "Voice-to-Code Playground",
-      "summary": "Write and test code using only your voice.",
-      "difficulty": "medium",
-      "estimatedTime": "4-6 days",
-      "tags": [
-        "voice",
-        "AI",
-        "developer tools"
-      ],
-      "techStack": [
-        "React",
-        "OpenAI Whisper",
-        "Monaco Editor"
-      ],
-      "description": "An interactive coding sandbox where you can build JavaScript snippets using voice commands. Includes speech-to-text integration, inline evaluation, and AI-assisted completions with explanation.",
-      "inspirationLink": "https://github.com/abacaj/codevoice",
-      "author": {
-        "name": "unknown",
-        "avatarUrl": "/public/logo192.png",
-        "githubUrl": "unknown"
-      },
-      "id": "9"
+        "title": "Voice-to-Code Playground",
+        "summary": "Write and test code using only your voice.",
+        "difficulty": "medium",
+        "estimatedTime": "4-6 days",
+        "tags": ["voice", "AI", "developer tools"],
+        "techStack": ["React", "OpenAI Whisper", "Monaco Editor"],
+        "description": "An interactive coding sandbox where you can build JavaScript snippets using voice commands. Includes speech-to-text integration, inline evaluation, and AI-assisted completions with explanation.",
+        "inspirationLink": "https://github.com/abacaj/codevoice",
+        "author": {
+            "name": "unknown",
+            "avatarUrl": "/public/logo192.png",
+            "githubUrl": "unknown"
+        },
+        "id": "9"
     },
     {
-      "id": "10",
-      "verified": false,
-      "title": "Minimal Habit Tracker",
-      "summary": "A distraction-free habit tracker with streak logic.",
-      "description": "Log daily habits and visualize streaks with beautiful animations. No account required. Sync with local storage or optional Supabase login for multi-device support.",
-      "tags": [
-        "productivity",
-        "self-improvement"
-      ],
-      "createdAt": "2025-05-03T12:00:00.000Z",
-      "difficulty": "easy",
-      "estimatedTime": "2-3 days",
-      "techStack": [
-        "Vue",
-        "Chart.js",
-        "Supabase"
-      ],
-      "upvotes": 33,
-      "views": 142,
-      "author": {
-        "name": "Yosef Daniel",
-        "avatarUrl": "https://i.pravatar.cc/150?img=48",
-        "githubUrl": "https://github.com/yosefdaniel"
-      },
-      "inspirationLink": "https://everyday.app/"
+        "id": "10",
+        "verified": false,
+        "title": "Minimal Habit Tracker",
+        "summary": "A distraction-free habit tracker with streak logic.",
+        "description": "Log daily habits and visualize streaks with beautiful animations. No account required. Sync with local storage or optional Supabase login for multi-device support.",
+        "tags": ["productivity", "self-improvement"],
+        "createdAt": "2025-05-03T12:00:00.000Z",
+        "difficulty": "easy",
+        "estimatedTime": "2-3 days",
+        "techStack": ["Vue", "Chart.js", "Supabase"],
+        "upvotes": 33,
+        "views": 142,
+        "author": {
+            "name": "Yosef Daniel",
+            "avatarUrl": "https://i.pravatar.cc/150?img=48",
+            "githubUrl": "https://github.com/yosefdaniel"
+        },
+        "inspirationLink": "https://everyday.app/"
     },
     {
-      "id": "11",
-      "verified": false,
-      "title": "Time-Zone Team Visualizer",
-      "summary": "View your remote team's time zones on a radial clock.",
-      "description": "Help remote teams schedule better meetings by showing overlapping work hours on a visual clock. Add teammates via link or username. Includes Google Calendar export.",
-      "tags": [
-        "remote",
-        "tools",
-        "visualization"
-      ],
-      "createdAt": "2025-05-04T08:20:00.000Z",
-      "difficulty": "medium",
-      "estimatedTime": "3 days",
-      "techStack": [
-        "Svelte",
-        "D3.js",
-        "Vite"
-      ],
-      "upvotes": 24,
-      "views": 110,
-      "author": {
-        "name": "Yonas Hagos",
-        "avatarUrl": "https://i.pravatar.cc/150?img=60",
-        "githubUrl": "https://github.com/yonash"
-      },
-      "inspirationLink": "https://everytimezone.com/"
+        "id": "11",
+        "verified": false,
+        "title": "Time-Zone Team Visualizer",
+        "summary": "View your remote team's time zones on a radial clock.",
+        "description": "Help remote teams schedule better meetings by showing overlapping work hours on a visual clock. Add teammates via link or username. Includes Google Calendar export.",
+        "tags": ["remote", "tools", "visualization"],
+        "createdAt": "2025-05-04T08:20:00.000Z",
+        "difficulty": "medium",
+        "estimatedTime": "3 days",
+        "techStack": ["Svelte", "D3.js", "Vite"],
+        "upvotes": 24,
+        "views": 110,
+        "author": {
+            "name": "Yonas Hagos",
+            "avatarUrl": "https://i.pravatar.cc/150?img=60",
+            "githubUrl": "https://github.com/yonash"
+        },
+        "inspirationLink": "https://everytimezone.com/"
     },
     {
-      "id": "12",
-      "verified": true,
-      "title": "Startup Name Generator",
-      "summary": "Generate unique, brandable names for startups.",
-      "description": "Enter a few keywords and get name suggestions powered by GPT, domain checks, and logo ideas. Includes inspiration mode for random creativity and AI tagline generator.",
-      "tags": [
-        "startups",
-        "branding",
-        "AI"
-      ],
-      "createdAt": "2025-05-05T13:15:00.000Z",
-      "difficulty": "easy",
-      "estimatedTime": "2-4 days",
-      "techStack": [
-        "Next.js",
-        "OpenAI API",
-        "Domainr API"
-      ],
-      "upvotes": 61,
-      "views": 350,
-      "author": {
-        "name": "Rahel Abebe",
-        "avatarUrl": "https://i.pravatar.cc/150?img=41",
-        "githubUrl": "https://github.com/rahelab"
-      },
-      "inspirationLink": "https://namelix.com/"
+        "id": "12",
+        "verified": true,
+        "title": "Startup Name Generator",
+        "summary": "Generate unique, brandable names for startups.",
+        "description": "Enter a few keywords and get name suggestions powered by GPT, domain checks, and logo ideas. Includes inspiration mode for random creativity and AI tagline generator.",
+        "tags": ["startups", "branding", "AI"],
+        "createdAt": "2025-05-05T13:15:00.000Z",
+        "difficulty": "easy",
+        "estimatedTime": "2-4 days",
+        "techStack": ["Next.js", "OpenAI API", "Domainr API"],
+        "upvotes": 61,
+        "views": 350,
+        "author": {
+            "name": "Rahel Abebe",
+            "avatarUrl": "https://i.pravatar.cc/150?img=41",
+            "githubUrl": "https://github.com/rahelab"
+        },
+        "inspirationLink": "https://namelix.com/"
     },
     {
-      "id": "13",
-      "verified": false,
-      "title": "Crypto Transaction Visualizer",
-      "summary": "Watch your crypto wallet's transaction history like a movie.",
-      "description": "Fetch transaction history for Ethereum wallets and animate token movements, volume spikes, and wallet interactions. Can be embedded in personal dashboards.",
-      "tags": [
-        "crypto",
-        "visualization",
-        "web3"
-      ],
-      "createdAt": "2025-05-06T10:10:00.000Z",
-      "difficulty": "hard",
-      "estimatedTime": "1 week",
-      "techStack": [
-        "Three.js",
-        "Ethers.js",
-        "React"
-      ],
-      "upvotes": 44,
-      "views": 198,
-      "author": {
-        "name": "Mekdes Yohannes",
-        "avatarUrl": "https://i.pravatar.cc/150?img=28",
-        "githubUrl": "https://github.com/mekdesy"
-      },
-      "inspirationLink": "https://txstreet.com/"
+        "id": "13",
+        "verified": false,
+        "title": "Crypto Transaction Visualizer",
+        "summary": "Watch your crypto wallet's transaction history like a movie.",
+        "description": "Fetch transaction history for Ethereum wallets and animate token movements, volume spikes, and wallet interactions. Can be embedded in personal dashboards.",
+        "tags": ["crypto", "visualization", "web3"],
+        "createdAt": "2025-05-06T10:10:00.000Z",
+        "difficulty": "hard",
+        "estimatedTime": "1 week",
+        "techStack": ["Three.js", "Ethers.js", "React"],
+        "upvotes": 44,
+        "views": 198,
+        "author": {
+            "name": "Mekdes Yohannes",
+            "avatarUrl": "https://i.pravatar.cc/150?img=28",
+            "githubUrl": "https://github.com/mekdesy"
+        },
+        "inspirationLink": "https://txstreet.com/"
     },
     {
-      "id": "14",
-      "verified": true,
-      "title": "AI Mood Journal",
-      "summary": "Track your emotions with daily writing and AI reflection.",
-      "description": "A private journal that uses AI to summarize your mood, find patterns, and suggest habits or affirmations. Includes calendar heatmaps and optional therapist sharing.",
-      "tags": [
-        "mental health",
-        "ai",
-        "journaling"
-      ],
-      "createdAt": "2025-05-07T11:40:00.000Z",
-      "difficulty": "medium",
-      "estimatedTime": "4-6 days",
-      "techStack": [
-        "Next.js",
-        "OpenAI",
-        "TailwindCSS"
-      ],
-      "upvotes": 50,
-      "views": 230,
-      "author": {
-        "name": "Eleni Fikre",
-        "avatarUrl": "https://i.pravatar.cc/150?img=20",
-        "githubUrl": "https://github.com/elenifikre"
-      },
-      "inspirationLink": "https://reflect.app/"
+        "id": "14",
+        "verified": true,
+        "title": "AI Mood Journal",
+        "summary": "Track your emotions with daily writing and AI reflection.",
+        "description": "A private journal that uses AI to summarize your mood, find patterns, and suggest habits or affirmations. Includes calendar heatmaps and optional therapist sharing.",
+        "tags": ["mental health", "ai", "journaling"],
+        "createdAt": "2025-05-07T11:40:00.000Z",
+        "difficulty": "medium",
+        "estimatedTime": "4-6 days",
+        "techStack": ["Next.js", "OpenAI", "TailwindCSS"],
+        "upvotes": 50,
+        "views": 230,
+        "author": {
+            "name": "Eleni Fikre",
+            "avatarUrl": "https://i.pravatar.cc/150?img=20",
+            "githubUrl": "https://github.com/elenifikre"
+        },
+        "inspirationLink": "https://reflect.app/"
     },
     {
-      "id": "15",
-      "verified": true,
-      "title": "Gamified Budget App",
-      "summary": "Turn saving money into a game.",
-      "description": "Users earn XP for logging expenses, completing savings challenges, and hitting weekly budget goals. Level up your savings avatar and unlock new reward themes.",
-      "tags": [
-        "finance",
-        "gamification",
-        "self-improvement"
-      ],
-      "createdAt": "2025-05-08T14:25:00.000Z",
-      "difficulty": "medium",
-      "estimatedTime": "5 days",
-      "techStack": [
-        "Flutter",
-        "Firebase",
-        "Stripe"
-      ],
-      "upvotes": 39,
-      "views": 189,
-      "author": {
-        "name": "Abel Tesfaye",
-        "avatarUrl": "https://i.pravatar.cc/150?img=23",
-        "githubUrl": "https://github.com/abeltdev"
-      },
-      "inspirationLink": "https://koody.app/"
+        "id": "15",
+        "verified": true,
+        "title": "Gamified Budget App",
+        "summary": "Turn saving money into a game.",
+        "description": "Users earn XP for logging expenses, completing savings challenges, and hitting weekly budget goals. Level up your savings avatar and unlock new reward themes.",
+        "tags": ["finance", "gamification", "self-improvement"],
+        "createdAt": "2025-05-08T14:25:00.000Z",
+        "difficulty": "medium",
+        "estimatedTime": "5 days",
+        "techStack": ["Flutter", "Firebase", "Stripe"],
+        "upvotes": 39,
+        "views": 189,
+        "author": {
+            "name": "Abel Tesfaye",
+            "avatarUrl": "https://i.pravatar.cc/150?img=23",
+            "githubUrl": "https://github.com/abeltdev"
+        },
+        "inspirationLink": "https://koody.app/"
     },
     {
-      "id": "16",
-      "verified": false,
-      "title": "Open Source Job Board",
-      "summary": "A curated board for open source contributor jobs.",
-      "description": "Lists paid and volunteer roles for popular open source projects, sortable by tech stack, difficulty, and company. Integrated with GitHub issues and Open Collective.",
-      "tags": [
-        "open source",
-        "jobs",
-        "contributions"
-      ],
-      "createdAt": "2025-05-09T09:30:00.000Z",
-      "difficulty": "medium",
-      "estimatedTime": "4-5 days",
-      "techStack": [
-        "Nuxt",
-        "GitHub API",
-        "MongoDB"
-      ],
-      "upvotes": 46,
-      "views": 211,
-      "author": {
-        "name": "Kidus Bekele",
-        "avatarUrl": "https://i.pravatar.cc/150?img=50",
-        "githubUrl": "https://github.com/kidusbekele"
-      },
-      "inspirationLink": "https://opensourcejobhub.com/"
+        "id": "16",
+        "verified": false,
+        "title": "Open Source Job Board",
+        "summary": "A curated board for open source contributor jobs.",
+        "description": "Lists paid and volunteer roles for popular open source projects, sortable by tech stack, difficulty, and company. Integrated with GitHub issues and Open Collective.",
+        "tags": ["open source", "jobs", "contributions"],
+        "createdAt": "2025-05-09T09:30:00.000Z",
+        "difficulty": "medium",
+        "estimatedTime": "4-5 days",
+        "techStack": ["Nuxt", "GitHub API", "MongoDB"],
+        "upvotes": 46,
+        "views": 211,
+        "author": {
+            "name": "Kidus Bekele",
+            "avatarUrl": "https://i.pravatar.cc/150?img=50",
+            "githubUrl": "https://github.com/kidusbekele"
+        },
+        "inspirationLink": "https://opensourcejobhub.com/"
     },
     {
-      "id": "17",
-      "verified": false,
-      "title": "Dev Quote Wallpaper Generator",
-      "summary": "Create wallpapers with your favorite programming quotes.",
-      "description": "Choose from popular dev quotes or enter your own, then generate a stylish wallpaper using custom fonts, themes, and code background noise. Export for desktop or mobile.",
-      "tags": [
-        "developer",
-        "design",
-        "quotes"
-      ],
-      "createdAt": "2025-05-10T10:00:00.000Z",
-      "difficulty": "easy",
-      "estimatedTime": "2 days",
-      "techStack": [
-        "Canvas API",
-        "Vite",
-        "TailwindCSS"
-      ],
-      "upvotes": 28,
-      "views": 160,
-      "author": {
-        "name": "Daniel Yoseph",
-        "avatarUrl": "https://i.pravatar.cc/150?img=19",
-        "githubUrl": "https://github.com/danyoseph"
-      },
-      "inspirationLink": "https://carbon.now.sh/"
+        "id": "17",
+        "verified": false,
+        "title": "Dev Quote Wallpaper Generator",
+        "summary": "Create wallpapers with your favorite programming quotes.",
+        "description": "Choose from popular dev quotes or enter your own, then generate a stylish wallpaper using custom fonts, themes, and code background noise. Export for desktop or mobile.",
+        "tags": ["developer", "design", "quotes"],
+        "createdAt": "2025-05-10T10:00:00.000Z",
+        "difficulty": "easy",
+        "estimatedTime": "2 days",
+        "techStack": ["Canvas API", "Vite", "TailwindCSS"],
+        "upvotes": 28,
+        "views": 160,
+        "author": {
+            "name": "Daniel Yoseph",
+            "avatarUrl": "https://i.pravatar.cc/150?img=19",
+            "githubUrl": "https://github.com/danyoseph"
+        },
+        "inspirationLink": "https://carbon.now.sh/"
+    },
+    {
+        "id": "19",
+        "verified": false,
+        "title": "AI Travel Itinerary Builder",
+        "summary": "Plan trips with AI-curated day-by-day itineraries.",
+        "description": "Users enter destination, interests, and duration. The app generates optimized travel plans with activity times, maps, food spots, and optional flight/hotel suggestions using GPT. Save plans, share them, or export to PDF.",
+        "tags": ["travel", "ai", "planner"],
+        "createdAt": "2025-07-31T12:00:00.000Z",
+        "difficulty": "medium",
+        "estimatedTime": "3-5 days",
+        "techStack": ["Next.js", "OpenAI", "Leaflet", "TailwindCSS"],
+        "upvotes": 0,
+        "views": 0,
+        "author": {
+            "name": "Yonatan Afewerk",
+            "avatarUrl": "https://i.pravatar.cc/150?img=99",
+            "githubUrl": "https://github.com/yonatanafewerk"
+        },
+        "inspirationLink": "https://www.triptuner.com/"
     }
-  ]
-}
+]

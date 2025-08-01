@@ -35,6 +35,7 @@ function IdeasDetailsPage() {
     const { data: idea } = useSuspenseQuery(
         ideasQueryOptions(Route.useParams().ideasId),
     )
+
     const [isOptionsOpen, setOptionsOpen] = useState(false)
     const menuRef = useRef<HTMLDivElement>(null)
 
@@ -70,7 +71,7 @@ function IdeasDetailsPage() {
         setOptionsOpen(false)
         // fire delete mutation, then redirect or toast
         try {
-            await mutateAsync(idea.id)
+            await mutateAsync(idea._id)
         } catch (error) {
             toast.error('Failed to delete idea')
         }
@@ -145,7 +146,7 @@ function IdeasDetailsPage() {
                             >
                                 <Link
                                     to="/ideas/$ideasId/edit"
-                                    params={{ ideasId: idea.id }}
+                                    params={{ ideasId: idea._id }}
                                 >
                                     <button className="w-full px-4 py-2 text-left cursor-pointer hover:bg-gray-100 flex items-center gap-2">
                                         <FileEdit size={16} /> Edit

@@ -3,9 +3,6 @@ import { createFileRoute } from '@tanstack/react-router'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { useEffect } from 'react'
-import { useRef } from 'react'
-import Header from '../components/Header'
-import Footer from '@/components/Footer'
 
 type RefsContext = {
     homeRef: React.RefObject<HTMLDivElement>

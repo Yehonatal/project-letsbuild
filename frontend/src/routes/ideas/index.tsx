@@ -69,7 +69,7 @@ function IdeasPage() {
 
     if (!data || data.length === 0) {
         return (
-            <div className="mt-10">
+            <div className="mt-10 flex items-center justify-center h-screen flex-col">
                 <HeadContent />
                 <h1 className="text-2xl font-bold">No Ideas Found</h1>
                 <p className="text-gray-600 mb-6">
@@ -108,7 +108,7 @@ function IdeasPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {data?.map((idea: IdeaType) => (
-                    <IdeaCard idea={idea} key={idea.id} />
+                    <IdeaCard idea={idea} key={idea._id} />
                 ))}
             </div>
         </div>

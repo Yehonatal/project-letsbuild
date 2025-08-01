@@ -2,14 +2,12 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { Toaster } from 'sonner'
 import NotFound from '@/components/NotFound'
 import Header from '../components/Header'
-import Footer from '@/components/Footer'
 import { LandingScrollProvider } from '@/context/LandingPageScrollContext'
 
 import {
     Outlet,
     createRootRouteWithContext,
     HeadContent,
-    useRouter,
 } from '@tanstack/react-router'
 import { QueryClient } from '@tanstack/react-query'
 import AOS from 'aos'

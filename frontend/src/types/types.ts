@@ -1,4 +1,5 @@
 interface IdeaType {
+    _id: string
     id: string
     title: string
     verified: boolean

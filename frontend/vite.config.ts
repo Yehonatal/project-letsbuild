@@ -7,23 +7,22 @@ import { resolve } from 'node:path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    tanstackRouter({ autoCodeSplitting: true, target: 'react' }),
-    viteReact(),
-    tailwindcss(),
-  ],
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src'),
+    plugins: [
+        tanstackRouter({ autoCodeSplitting: true, target: 'react' }),
+        viteReact(),
+        tailwindcss(),
+    ],
+    resolve: {
+        alias: {
+            '@': resolve(__dirname, './src'),
+        },
     },
-  },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
+    server: {
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8080',
+                changeOrigin: true,
+            },
+        },
     },
-  },
 })

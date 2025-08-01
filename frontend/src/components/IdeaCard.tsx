@@ -3,7 +3,6 @@ import { Link } from '@tanstack/react-router'
 import { BadgeCheckIcon } from 'lucide-react'
 
 const IdeaCard = ({ idea }: { idea: IdeaType }) => {
-    console.log(idea.author)
     return (
         <div
             data-aos="fade-up"
@@ -11,7 +10,7 @@ const IdeaCard = ({ idea }: { idea: IdeaType }) => {
             key={idea.id}
             className="border border-dashed relative cursor-pointer border-gray-300 rounded-lg p-4 bg-white shadow-sm hover:shadow-md hover:bg-gray-50 transition-shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
         >
-            <Link to="/ideas/$ideasId" params={{ ideasId: idea.id }}>
+            <Link to="/ideas/$ideasId" params={{ ideasId: idea._id }}>
                 <div className="mb-2">
                     <div className="flex items-center gap-2">
                         <h2 className="text-lg font-bold text-gray-900">
