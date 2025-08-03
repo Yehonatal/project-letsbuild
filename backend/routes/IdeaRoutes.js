@@ -1,13 +1,15 @@
 import express from "express";
-const router = express.Router();
 import { fileURLToPath } from "url";
 import fs from "fs";
 import path from "path";
+import Idea from "../models/Idea.js";
+import mongoose from "mongoose";
+import { protect } from "../middleware/authMiddleware.js";
+
+const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const filePath = path.join(__dirname, "..", "data", "db.json");
-import Idea from "../models/Idea.js";
-import mongoose from "mongoose";
 
 const getDataFromFile = () => {
     if (!fs.existsSync(filePath)) {
@@ -26,6 +28,7 @@ const getDataFromFile = () => {
  * @route           GET /api/routes
  * @description     GET all ideas
  * @access          Public
+ * @query          _limit (optional limit for ideas returned)
  * Reads data from a specified file. If the file does not exist, returns an empty array.
  * If the file exists, attempts to read and parse its contents as JSON.
  * Logs an error and returns an empty array if reading or parsing fails.
@@ -34,7 +37,13 @@ const getDataFromFile = () => {
  */
 router.get("/", async (req, res, next) => {
     try {
-        const ideas = await Idea.find();
+        const limit = parseInt(req.query._limit);
+        const query = Idea.find().sort({ createdAt: -1 });
+
+        if (!isNaN(limit)) {
+            query.limit(limit);
+        }
+        const ideas = await query.exec();
         res.json(ideas);
     } catch (error) {
         next(error);
@@ -51,7 +60,7 @@ router.get("/", async (req, res, next) => {
  *
  * @returns {Object} The newly created idea or an error message.
  */
-router.post("/", async (req, res, next) => {
+router.post("/", protect, async (req, res, next) => {
     try {
         const {
             title,
@@ -64,7 +73,7 @@ router.post("/", async (req, res, next) => {
             techStack,
             inspirationLink,
             author,
-        } = req.body;
+        } = req.body || {};
 
         if (!title.trim() || !summary?.trim() || !description?.trim()) {
             return res
@@ -73,6 +82,7 @@ router.post("/", async (req, res, next) => {
         }
 
         const newIdea = new Idea({
+            user: req.user._id, // Attach the authenticated user's ID
             title,
             verified,
             summary,
@@ -134,17 +144,6 @@ router.get("/:id", async (req, res, next) => {
 });
 
 /**
- * @route           PATCH /api/routes/:id
- * @description     Update an idea by ID
- * @access          Public
- * Updates the fields of an existing idea matching the provided ID.
- * Returns the updated idea or an error if not found or update fails.
- *
- * @returns {Object} The updated idea object or an error message.
- */
-router.patch("/:id", (req, res) => {});
-
-/**
  * @route           DELETE /api/routes/:id
  * @description     Delete an idea by ID
  * @access          Public
@@ -153,23 +152,41 @@ router.patch("/:id", (req, res) => {});
  *
  * @returns {Object} Success message or an error message.
  */
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", protect, async (req, res, next) => {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "Idea not found." });
     }
     try {
-        const idea = await Idea.findByIdAndDelete(id);
-        if (!idea) {
+        const ideaToDelete = await Idea.findById(id);
+        if (!ideaToDelete) {
             return res.status(404).json({ error: "Idea not found." });
         }
+
+        // Check if the user is authorized to delete this idea
+        if (ideaToDelete.user.toString() !== req.user._id.toString()) {
+            return res
+                .status(403)
+                .json({ error: "Not authorized to delete this idea." });
+        }
+
+        await Idea.deleteOne();
         res.json({ message: "Idea deleted successfully." });
     } catch (err) {
         next(err);
     }
 });
 
-router.put("/:id", async (req, res, next) => {
+/**
+ * @route           PUT /api/routes/:id
+ * @description     Update an idea by ID
+ * @access          Public
+ * Updates the fields of an existing idea matching the provided ID.
+ * Returns the updated idea or an error if not found or update fails.
+ *
+ * @returns {Object} The updated idea object or an error message.
+ */
+router.put("/:id", protect, async (req, res, next) => {
     try {
         const { id } = req.params;
         if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -186,37 +203,50 @@ router.put("/:id", async (req, res, next) => {
             techStack,
             inspirationLink,
             author,
-        } = req.body;
+        } = req.body || {};
 
-        const updateIdea = await Idea.findByIdAndUpdate(
-            id,
-            {
-                title,
-                verified,
-                summary,
-                description,
-                tags: Array.isArray(tags)
-                    ? tags
-                    : tags.split(",").map((t) => t.trim()),
-                difficulty,
-                estimatedTime,
-                techStack: Array.isArray(techStack)
-                    ? techStack
-                    : techStack.split(",").map((t) => t.trim()),
-                inspirationLink,
-                author: {
-                    name: author?.name || "Anonymous",
-                    avatarUrl: author?.avatarUrl || "",
-                    githubUrl: author?.githubUrl || "",
-                },
-            },
-            { new: true }
-        );
-
-        if (!updateIdea) {
+        const ideaToUpdate = await Idea.findById(id);
+        if (!ideaToUpdate) {
             return res.status(404).json({ error: "Idea not found." });
         }
-        res.json(updateIdea);
+
+        // Check if the user is authorized to update this idea
+        if (ideaToUpdate.user.toString() !== req.user._id.toString()) {
+            return res
+                .status(403)
+                .json({ error: "Not authorized to update this idea." });
+        }
+
+        // Update the idea with the provided fields
+        ideaToUpdate.tittle = title;
+        ideaToUpdate.verified = verified;
+        ideaToUpdate.summary = summary;
+        ideaToUpdate.description = description;
+        ideaToUpdate.tags =
+            typeof tags === "string"
+                ? tags
+                      .split(",")
+                      .map((t) => t.trim())
+                      .filter(Boolean)
+                : [];
+        ideaToUpdate.difficulty = difficulty;
+        ideaToUpdate.estimatedTime = estimatedTime;
+        ideaToUpdate.techStack =
+            typeof techStack === "string"
+                ? techStack
+                      .split(",")
+                      .map((t) => t.trim())
+                      .filter(Boolean)
+                : [];
+        ideaToUpdate.inspirationLink = inspirationLink;
+        ideaToUpdate.author = {
+            name: author?.name || "Anonymous",
+            avatarUrl: author?.avatarUrl || "",
+            githubUrl: author?.githubUrl || "",
+        };
+
+        const updatedIdea = await ideaToUpdate.save();
+        res.json(updatedIdea);
     } catch (err) {
         next(err);
     }

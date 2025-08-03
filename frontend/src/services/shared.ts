@@ -1,8 +1,10 @@
 import api from '@/lib/axios'
 import type { IdeaType } from '@/types/types'
 
-export const fetchIdeas = async (): Promise<IdeaType[]> => {
-    const response = await api.get('/api/ideas')
+export const fetchIdeas = async (limit?: number): Promise<IdeaType[]> => {
+    const response = await api.get('/api/ideas', {
+        params: limit ? { _limit: limit } : {},
+    })
     return response.data
 }
 
