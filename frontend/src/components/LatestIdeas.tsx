@@ -1,18 +1,19 @@
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
-import { fetchIdeas } from '@/services/shared'
+import { fetchLatestIdeas } from '@/services/shared'
 import type { IdeaType } from '@/types/types'
 import { DoorOpenIcon, Loader2 } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
-const ideasQueryOptions = () =>
+
+const latestIdeasQueryOption = () =>
     queryOptions<IdeaType[]>({
-        queryKey: ['ideas'],
-        queryFn: () => fetchIdeas(3),
+        queryKey: ['latest-ideas'],
+        queryFn: () => fetchLatestIdeas(3),
         staleTime: 1000 * 60 * 2, // 2 minutes
         refetchOnWindowFocus: true,
     })
 
 const LatestIdeas = () => {
-    const { data: ideas } = useSuspenseQuery(ideasQueryOptions())
+    const { data: ideas } = useSuspenseQuery(latestIdeasQueryOption())
 
     if (!ideas || ideas.length === 0) {
         return (

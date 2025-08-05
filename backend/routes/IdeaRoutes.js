@@ -51,6 +51,119 @@ router.get("/", async (req, res, next) => {
 });
 
 /**
+ * @route   GET /api/ideas/mine
+ * @desc    Get top 2 ideas of the logged-in user by custom score
+ * @access  Private (requires auth)
+ */
+router.get("/mine", protect, async (req, res, next) => {
+    try {
+        const pipeline = [
+            { $match: { user: req.user._id } },
+
+            {
+                $addFields: {
+                    estMatch: {
+                        $regexFind: {
+                            input: "$estimatedTime",
+                            regex: "\\d+",
+                        },
+                    },
+                },
+            },
+
+            {
+                $addFields: {
+                    estimatedNumber: {
+                        $toInt: "$estMatch.match",
+                    },
+                },
+            },
+
+            {
+                $addFields: {
+                    difficultyMultiplier: {
+                        $switch: {
+                            branches: [
+                                {
+                                    case: { $eq: ["$difficulty", "easy"] },
+                                    then: 1,
+                                },
+                                {
+                                    case: { $eq: ["$difficulty", "medium"] },
+                                    then: 2,
+                                },
+                                {
+                                    case: { $eq: ["$difficulty", "hard"] },
+                                    then: 3,
+                                },
+                            ],
+                            default: 1,
+                        },
+                    },
+                },
+            },
+
+            {
+                $addFields: {
+                    difficultyScore: {
+                        $multiply: [
+                            "$estimatedNumber",
+                            "$difficultyMultiplier",
+                        ],
+                    },
+                },
+            },
+
+            { $sort: { difficultyScore: -1 } },
+            { $limit: 2 },
+        ];
+
+        const ideas = await Idea.aggregate(pipeline);
+        res.json(ideas);
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get("/mine/summary", protect, async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        const summary = await Idea.aggregate([
+            { $match: { user: userId } },
+            {
+                $facet: {
+                    counts: [
+                        {
+                            $group: {
+                                _id: null,
+                                totalIdeas: { $sum: 1 },
+                                totalUpvotes: { $sum: "$upvotes" },
+                                totalViews: { $sum: "$views" },
+                                avgUpvotes: { $avg: "$upvotes" },
+                            },
+                        },
+                    ],
+                    topTags: [
+                        { $unwind: "$tags" },
+                        { $group: { _id: "$tags", count: { $sum: 1 } } },
+                        { $sort: { count: -1 } },
+                        { $limit: 3 },
+                    ],
+                    recentIdeas: [
+                        { $sort: { createdAt: -1 } },
+                        { $limit: 3 },
+                        { $project: { title: 1, createdAt: 1 } },
+                    ],
+                },
+            },
+        ]);
+        res.json(summary[0]);
+    } catch (err) {
+        next(err);
+    }
+});
+
+/**
  * @route           POST /api/routes
  * @description     Create a new idea
  * @access          Public
@@ -115,6 +228,43 @@ router.post("/", protect, async (req, res, next) => {
         res.status(201).json(savedIdea);
     } catch (err) {
         next(err);
+    }
+});
+
+/**
+ * @route           GET /api/ideas/featured
+ * @description     Get top featured ideas by upvotes
+ * @access          Public
+ */
+router.get("/featured", async (req, res, next) => {
+    try {
+        const limit = parseInt(req.query._limit) || 4;
+
+        const featuredIdeas = await Idea.aggregate([
+            { $match: { verified: true } },
+            { $sort: { upvotes: -1 } },
+            { $limit: limit },
+        ]);
+
+        res.json(featuredIdeas);
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get("/latest", async (req, res, next) => {
+    try {
+        const limit = parseInt(req.query._limit) || 4;
+
+        const latestIdeas = await Idea.aggregate([
+            { $match: { verified: true } },
+            { $sort: { createdAt: -1 } },
+            { $limit: limit },
+        ]);
+
+        res.json(latestIdeas);
+    } catch (error) {
+        next(error);
     }
 });
 

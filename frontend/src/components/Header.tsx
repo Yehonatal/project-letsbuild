@@ -141,9 +141,11 @@ export default function Header() {
                     {/* User Profile */}
                     {user && (
                         <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 border-gray-700 border-dashed border-2 flex items-center justify-center rounded-full bg-green-500 text-white font-bold">
-                                {user.name.charAt(0).toUpperCase()}
-                            </div>
+                            <Link to="/profile">
+                                <div className="w-8 h-8 border-gray-700 border-dashed border-2 flex items-center justify-center rounded-full bg-green-500 text-white font-bold">
+                                    {user.name.charAt(0).toUpperCase()}
+                                </div>
+                            </Link>
                         </div>
                     )}
                 </div>

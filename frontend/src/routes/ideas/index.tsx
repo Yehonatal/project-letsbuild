@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import IdeaCard from '@/components/IdeaCard'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 import { useAuth } from '@/context/AuthContext'
+import UsersIdeas from '@/components/UsersIdeas'
 
 const ideasQueryOptions = () =>
     queryOptions<IdeaType[]>({
@@ -91,8 +92,8 @@ function IdeasPage() {
     return (
         <div className="my-10 max-w-6xl mx-auto px-4 ">
             <HeadContent />
-            <div className="mb-6 flex p-2 border-dashed justify-between items-center border  z-10 left-0 bg-green-50 backdrop-blur-3xl">
-                <div className=" top-0 *:z-10 left-0 bg-green-50 backdrop-blur-3xl">
+            <div className="mb-6 flex p-2 border-dashed justify-between items-center border z-10 bg-green-50 backdrop-blur-3xl">
+                <div className=" flex flex-row justify-between items-center ">
                     <div>
                         <h1 className="text-2xl font-bold">Project Ideas</h1>
                         <p className="text-gray-600 mb-6">
@@ -112,6 +113,11 @@ function IdeasPage() {
                 </div>
             </div>
 
+            {/* Current Users Ideas */}
+            <div className="my-4">{user && <UsersIdeas />}</div>
+            <hr className="border-dashed my-6 opacity-10" />
+
+            <h1 className="text-2xl font-extralight mb-4">All Project Ideas</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {data?.map((idea: IdeaType) => (
                     <IdeaCard idea={idea} key={idea._id} />

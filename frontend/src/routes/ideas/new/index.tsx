@@ -55,7 +55,7 @@ export default function NewIdeaPage() {
     async function handleSubmit() {
         const newIdea: Omit<
             IdeaType,
-            'id' | 'createdAt' | 'upvotes' | 'views'
+            '_id' | 'id' | 'createdAt' | 'upvotes' | 'views'
         > = {
             title: title.trim(),
             verified: false, // Default to false, can be updated later
@@ -73,7 +73,7 @@ export default function NewIdeaPage() {
                 .filter(Boolean),
             author: {
                 name: authorName.trim(),
-                avatarUrl: '/public/logo192.png', // upload logic to fill
+                avatarUrl: '/logo192.png', // upload logic to fill
                 githubUrl: authorGithub.trim() || undefined,
             },
             inspirationLink: inspirationLink.trim() || undefined,

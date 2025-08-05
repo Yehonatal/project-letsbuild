@@ -1,24 +1,23 @@
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
-import { fetchIdeas } from '@/services/shared'
+import { fetchFeaturedIdeas } from '@/services/shared'
 import type { IdeaType } from '@/types/types'
 import { Loader2, Star } from 'lucide-react'
 import IdeaCard from '../IdeaCard'
 
-const ideasQueryOptions = () =>
+const featuredIdeasQueryOptions = () =>
     queryOptions<IdeaType[]>({
-        queryKey: ['ideas'],
-        queryFn: () => fetchIdeas(),
-        staleTime: 1000 * 60 * 2, // 2 minutes
+        queryKey: ['featuredIdeas'],
+        queryFn: () => fetchFeaturedIdeas(4),
+        staleTime: 1000 * 60 * 2,
         refetchOnWindowFocus: true,
     })
 
 const FeaturedProjects = () => {
-    const { data } = useSuspenseQuery(ideasQueryOptions())
+    const { data: featuredIdeas } = useSuspenseQuery(
+        featuredIdeasQueryOptions(),
+    )
 
-    const sortedList = data.sort((a, b) => b.upvotes - a.upvotes)
-    const featuredIdeas = sortedList.slice(0, 4)
-
-    if (!data) {
+    if (!featuredIdeas) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <Loader2 size={35} className="animate-spin text-gray-500" />
