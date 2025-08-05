@@ -7,7 +7,7 @@ import IdeaCard from '../IdeaCard'
 const ideasQueryOptions = () =>
     queryOptions<IdeaType[]>({
         queryKey: ['ideas'],
-        queryFn: fetchIdeas,
+        queryFn: () => fetchIdeas(),
         staleTime: 1000 * 60 * 2, // 2 minutes
         refetchOnWindowFocus: true,
     })
@@ -73,7 +73,9 @@ const FeaturedProjects = () => {
                 {/* Featured Idea Cards */}
                 <div className="grid md:grid-cols-2 gap-6">
                     {featuredIdeas.map((idea) => (
-                        <IdeaCard idea={idea} key={idea.id} />
+                        <div key={idea._id}>
+                            <IdeaCard idea={idea} />
+                        </div>
                     ))}
                 </div>
             </div>

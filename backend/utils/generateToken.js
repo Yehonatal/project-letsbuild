@@ -7,7 +7,7 @@ import JWT_SECRET from "./getJwtSecret.js";
  * @param {string} expiresIn - Token expiration time (e.g., "1h", "2d")
  */
 
-export const generateToken = async (payload, expiresIn = "15m") => {
+export const generateToken = async (payload, expiresIn = "1h") => {
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()

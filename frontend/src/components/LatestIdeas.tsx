@@ -13,7 +13,6 @@ const ideasQueryOptions = () =>
 
 const LatestIdeas = () => {
     const { data: ideas } = useSuspenseQuery(ideasQueryOptions())
-    console.log(ideas)
 
     if (!ideas || ideas.length === 0) {
         return (
@@ -30,11 +29,11 @@ const LatestIdeas = () => {
                     LATEST IDEAS IN OUR COLLECTION
                 </h3>
             </div>
-            {ideas.map((idea) => (
+            {ideas.map((idea, idx) => (
                 <div
-                    key={idea.id}
+                    key={idea._id}
                     data-aos="fade-left"
-                    data-aos-delay={100 * Number(idea.id)}
+                    data-aos-delay={150 * Number(idx)}
                     className="flex flex-col sm:flex-row items-start sm:items-center justify-between
                  bg-white border-dashed border-1 border-gray-300 shadow-md rounded-lg p-4
                  hover:shadow-lg transition"

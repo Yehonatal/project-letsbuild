@@ -36,7 +36,7 @@ function IdeaEditPage() {
     })
 
     const { mutateAsync: update } = useMutation({
-        mutationFn: (updated: IdeaType) => updateIdea(idea.id, updated),
+        mutationFn: (updated: IdeaType) => updateIdea(idea._id, updated),
         onSuccess: () => {
             toast.success('Idea updated successfully!')
             queryClient.invalidateQueries({ queryKey: ['ideas', ideasId] })

@@ -170,7 +170,7 @@ router.delete("/:id", protect, async (req, res, next) => {
                 .json({ error: "Not authorized to delete this idea." });
         }
 
-        await Idea.deleteOne();
+        await Idea.deleteOne({ _id: id });
         res.json({ message: "Idea deleted successfully." });
     } catch (err) {
         next(err);
@@ -205,6 +205,8 @@ router.put("/:id", protect, async (req, res, next) => {
             author,
         } = req.body || {};
 
+        console.log("to update", title);
+
         const ideaToUpdate = await Idea.findById(id);
         if (!ideaToUpdate) {
             return res.status(404).json({ error: "Idea not found." });
@@ -218,7 +220,7 @@ router.put("/:id", protect, async (req, res, next) => {
         }
 
         // Update the idea with the provided fields
-        ideaToUpdate.tittle = title;
+        ideaToUpdate.title = title;
         ideaToUpdate.verified = verified;
         ideaToUpdate.summary = summary;
         ideaToUpdate.description = description;
@@ -246,6 +248,7 @@ router.put("/:id", protect, async (req, res, next) => {
         };
 
         const updatedIdea = await ideaToUpdate.save();
+        console.log("Updated idea:", updatedIdea);
         res.json(updatedIdea);
     } catch (err) {
         next(err);

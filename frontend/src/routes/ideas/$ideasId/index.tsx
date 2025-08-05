@@ -5,6 +5,7 @@ import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { deleteIdea } from '@/services/shared'
+import { useAuth } from '@/context/AuthContext'
 
 import {
     AngryIcon,
@@ -30,14 +31,21 @@ export const Route = createFileRoute('/ideas/$ideasId/')({
     },
 })
 
+// 6891cf78539bb4db000e43a2
+// 6891cfc1539bb4db000e43ae
+
 function IdeasDetailsPage() {
     const navigate = useNavigate()
+    const { user } = useAuth()
     const { data: idea } = useSuspenseQuery(
         ideasQueryOptions(Route.useParams().ideasId),
     )
 
     const [isOptionsOpen, setOptionsOpen] = useState(false)
     const menuRef = useRef<HTMLDivElement>(null)
+
+    console.log('Idea details:', idea)
+    console.log('User:', user)
 
     useEffect(() => {
         function onClickOutside(e: MouseEvent) {
@@ -139,7 +147,7 @@ function IdeasDetailsPage() {
                             <MoreVerticalIcon size={20} />
                         </button>
 
-                        {isOptionsOpen && (
+                        {isOptionsOpen && user && (
                             <div
                                 ref={menuRef}
                                 className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-md shadow-md z-20"
@@ -148,13 +156,33 @@ function IdeasDetailsPage() {
                                     to="/ideas/$ideasId/edit"
                                     params={{ ideasId: idea._id }}
                                 >
-                                    <button className="w-full px-4 py-2 text-left cursor-pointer hover:bg-gray-100 flex items-center gap-2">
+                                    <button
+                                        disabled={
+                                            !user ||
+                                            !idea ||
+                                            user.id !== idea.user
+                                        }
+                                        className={`w-full px-4 py-2 text-left cursor-pointer flex items-center gap-2 ${
+                                            !user ||
+                                            !idea ||
+                                            user.id !== idea.user
+                                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                                : 'hover:bg-gray-100 text-black'
+                                        }`}
+                                    >
                                         <FileEdit size={16} /> Edit
                                     </button>
                                 </Link>
                                 <button
                                     onClick={handleDelete}
-                                    className="w-full px-4 py-2 text-left cursor-pointer hover:bg-gray-100 flex items-center gap-2"
+                                    disabled={
+                                        !user || !idea || user.id !== idea?.user
+                                    }
+                                    className={`w-full px-4 py-2 text-left cursor-pointer flex items-center gap-2 ${
+                                        !user || !idea || user.id !== idea?.user
+                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                            : 'hover:bg-gray-100 text-black'
+                                    }`}
                                 >
                                     <DeleteIcon size={16} /> Delete
                                 </button>
@@ -172,7 +200,7 @@ function IdeasDetailsPage() {
                             {idea.author.avatarUrl && (
                                 <img
                                     src={`${idea.author.avatarUrl || '/logo192.png'}`}
-                                    alt={idea.author.name}
+                                    alt={idea.author.name.split(' ')[0][0]}
                                     className="w-10 h-10 rounded-full object-cover"
                                 />
                             )}

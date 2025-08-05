@@ -6,7 +6,7 @@ const IdeaCard = ({ idea }: { idea: IdeaType }) => {
     return (
         <div
             data-aos="fade-up"
-            data-aos-delay={100 * Number(idea.id)}
+            // data-aos-delay={100 * Number(idea.id)}
             key={idea.id}
             className="border border-dashed relative cursor-pointer border-gray-300 rounded-lg p-4 bg-white shadow-sm hover:shadow-md hover:bg-gray-50 transition-shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
         >
