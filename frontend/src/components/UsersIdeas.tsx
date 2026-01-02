@@ -25,19 +25,21 @@ const UsersIdeas = () => {
     }
 
     return (
-        <section>
-            <h2 className="text-2xl font-extralight mb-4">
-                Your Top (2) Project Ideas
-            </h2>
-            {myIdeas.length === 0 ? (
-                <p>You haven’t submitted any ideas yet.</p>
-            ) : (
-                <div className="grid md:grid-cols-2 gap-6">
-                    {myIdeas.map((idea) => (
-                        <IdeaCard key={idea._id} idea={idea} />
-                    ))}
+        <section className="space-y-8">
+            <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold text-slate-900">
+                    Your Contributions
+                </h2>
+                <div className="px-4 py-1 rounded-full bg-emerald-50 text-emerald-600 text-sm font-bold border border-emerald-100">
+                    {myIdeas.length} Ideas
                 </div>
-            )}
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+                {myIdeas.map((idea) => (
+                    <IdeaCard key={idea._id} idea={idea} />
+                ))}
+            </div>
         </section>
     )
 }

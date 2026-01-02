@@ -50,76 +50,93 @@ function RegisterPage() {
         setError(null)
     }
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <div className="bg-white p-8 rounded-lg border-dashed border shadow-md w-full max-w-md">
-                <h1 className="text-2xl font-bold mb-6  text-gray-800">
-                    Register
-                </h1>
-                {error && (
-                    <div className="mb-4 text-red-500 bg-red-50 p-2">
-                        {error}
+        <div className="flex items-center justify-center min-h-screen bg-[#fcfcfd] px-4">
+            <div className="w-full max-w-md">
+                <div className="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-2xl shadow-slate-200/50">
+                    <div className="mb-10 text-center">
+                        <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
+                            Join the community
+                        </h1>
+                        <p className="text-slate-500 mt-2">
+                            Start sharing and building your ideas today
+                        </p>
                     </div>
-                )}
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault()
-                        handleRegister(e)
-                    }}
-                    className="space-y-6"
-                >
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                            Full Name
-                        </label>
-                        <input
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="mt-1 border-l-4 border-2 p-2 block w-full border-gray-300 rounded-md shadow-sm "
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="mt-1 p-2 border-l-4 border-2 block w-full border-gray-300 rounded-md shadow-sm"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="mt-1 p-2 block border-l-4 border-2 w-full border-gray-300 rounded-md shadow-sm"
-                            required
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        disabled={isPending}
-                        className="w-full bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 transition duration-200"
+
+                    {error && (
+                        <div className="mb-6 text-sm font-medium text-red-600 bg-red-50 p-4 rounded-2xl border border-red-100">
+                            {error}
+                        </div>
+                    )}
+
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault()
+                            handleRegister(e)
+                        }}
+                        className="space-y-5"
                     >
-                        {isPending ? 'Registering...' : 'Register'}
-                    </button>
-                </form>
-                <p className="mt-6 text-sm text-gray-600 text-center">
-                    Already have an account?{' '}
-                    <Link
-                        to="/login"
-                        className="text-green-500 hover:underline"
-                    >
-                        Login here
-                    </Link>
-                </p>
+                        <div className="space-y-2">
+                            <label className="text-sm font-bold text-slate-700 ml-1">
+                                Full Name
+                            </label>
+                            <input
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none text-slate-900"
+                                placeholder="John Doe"
+                                required
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-sm font-bold text-slate-700 ml-1">
+                                Email address
+                            </label>
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none text-slate-900"
+                                placeholder="name@example.com"
+                                required
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-sm font-bold text-slate-700 ml-1">
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none text-slate-900"
+                                placeholder="••••••••"
+                                required
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            disabled={isPending}
+                            className="w-full bg-slate-900 text-white font-bold py-4 rounded-2xl hover:bg-slate-800 hover:shadow-xl hover:shadow-slate-200 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+                        >
+                            {isPending
+                                ? 'Creating account...'
+                                : 'Create account'}
+                        </button>
+                    </form>
+
+                    <div className="mt-10 text-center">
+                        <p className="text-sm text-slate-500">
+                            Already have an account?{' '}
+                            <Link
+                                to="/login"
+                                className="text-emerald-600 font-bold hover:text-emerald-700 transition-colors"
+                            >
+                                Sign in instead
+                            </Link>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     )

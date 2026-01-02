@@ -17,60 +17,71 @@ const LatestIdeas = () => {
 
     if (!ideas || ideas.length === 0) {
         return (
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex items-center justify-center py-12">
                 <Loader2 size={35} className="animate-spin text-gray-500" />
             </div>
         )
     }
 
     return (
-        <div className="space-y-4 relative">
-            <div className="">
-                <h3 className="text-lg font-extralight text-gray-900">
-                    LATEST IDEAS IN OUR COLLECTION
-                </h3>
-            </div>
-            {ideas.map((idea, idx) => (
-                <div
-                    key={idea._id}
-                    data-aos="fade-left"
-                    data-aos-delay={150 * Number(idx)}
-                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between
-                 bg-white border-dashed border-1 border-gray-300 shadow-md rounded-lg p-4
-                 hover:shadow-lg transition"
+        <div className="space-y-6">
+            <div className="flex items-center justify-between">
+                <div>
+                    <h3 className="text-xl font-bold text-slate-900">
+                        Latest drops
+                    </h3>
+                    <p className="text-sm text-slate-500">
+                        Fresh from the community
+                    </p>
+                </div>
+                <a
+                    href="/ideas"
+                    className="text-sm font-medium text-emerald-600 hover:text-emerald-700 transition-colors"
                 >
-                    <div className="flex-1">
-                        <h4 className="text-lg font-semibold text-gray-900">
-                            {idea.title}
-                        </h4>
-                        <p className="text-sm text-gray-600 mt-1 line-clamp-2">
-                            {idea.summary}
-                        </p>
+                    View all
+                </a>
+            </div>
+            <div className="space-y-4">
+                {ideas.map((idea, idx) => (
+                    <div
+                        key={idea._id}
+                        data-aos="fade-up"
+                        data-aos-delay={100 * Number(idx)}
+                        className="group block p-5 rounded-2xl border border-slate-50 bg-slate-50/50 hover:bg-white hover:border-emerald-100 hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-300"
+                    >
+                        <div className="flex justify-between items-start gap-4">
+                            <div className="flex-1 min-w-0">
+                                <h4 className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors truncate">
+                                    {idea.title}
+                                </h4>
+                                <p className="text-sm text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+                                    {idea.summary}
+                                </p>
+                            </div>
+                            <Link
+                                to="/ideas/$ideasId"
+                                params={{ ideasId: idea._id }}
+                                className="shrink-0 p-2 rounded-full bg-white border border-slate-100 text-slate-400 group-hover:text-emerald-600 group-hover:border-emerald-100 transition-all"
+                            >
+                                <DoorOpenIcon className="w-4 h-4" />
+                            </Link>
+                        </div>
+
                         {idea.tags.length > 0 && (
-                            <ul className="flex flex-wrap gap-2 mt-2">
-                                {idea.tags.map((tag) => (
-                                    <li
+                            <div className="flex flex-wrap gap-2 mt-4">
+                                {idea.tags.slice(0, 3).map((tag) => (
+                                    <span
                                         key={tag}
-                                        className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full"
+                                        className="text-[10px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-emerald-600 transition-colors"
                                     >
                                         #{tag}
-                                    </li>
+                                    </span>
                                 ))}
-                            </ul>
+                            </div>
                         )}
                     </div>
-
-                    <div>
-                        <Link
-                            to="/ideas/$ideasId"
-                            params={{ ideasId: idea._id }}
-                            className="mt-3 sm:mt-0 sm:ml-6 text-sm font-medium text-blue-600 hover:underline"
-                        >
-                            <DoorOpenIcon className="inline-block w-4 h-4 mr-1" />
-                        </Link>
-                    </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     )
 }

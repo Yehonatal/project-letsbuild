@@ -90,38 +90,56 @@ function IdeasPage() {
     }, [data])
 
     return (
-        <div className="my-10 max-w-6xl mx-auto px-4 ">
+        <div className="min-h-screen bg-[#fcfcfd] py-12 lg:py-20">
             <HeadContent />
-            <div className="mb-6 flex p-2 border-dashed justify-between items-center border z-10 bg-green-50 backdrop-blur-3xl">
-                <div className=" flex flex-row justify-between items-center ">
-                    <div>
-                        <h1 className="text-2xl font-bold">Project Ideas</h1>
-                        <p className="text-gray-600 mb-6">
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+                    <div className="space-y-4">
+                        <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight">
+                            Project{' '}
+                            <span className="text-emerald-600">Ideas</span>
+                        </h1>
+                        <p className="text-lg text-slate-600 max-w-2xl leading-relaxed">
                             Browse through the latest project ideas shared by
-                            our community.
+                            our community. Find your next build or collaborate
+                            with others.
                         </p>
                     </div>
                     {user && (
-                        <div>
-                            <Link to="/ideas/new">
-                                <button className="px-4 font-medium text-green-500 py-2 cursor-pointer hover:underline hover:text-blue-600 transition">
-                                    Submit a New Idea
-                                </button>
-                            </Link>
-                        </div>
+                        <Link
+                            to="/ideas/new"
+                            className="inline-flex items-center gap-2 rounded-2xl bg-slate-900 px-8 py-4 text-white font-bold transition hover:bg-slate-800 hover:shadow-xl hover:shadow-slate-200 hover:-translate-y-0.5"
+                        >
+                            Share an idea
+                        </Link>
                     )}
                 </div>
-            </div>
 
-            {/* Current Users Ideas */}
-            <div className="my-4">{user && <UsersIdeas />}</div>
-            <hr className="border-dashed my-6 opacity-10" />
+                {user && (
+                    <div className="mb-20">
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="h-8 w-1 bg-emerald-500 rounded-full" />
+                            <h2 className="text-2xl font-bold text-slate-900">
+                                Your contributions
+                            </h2>
+                        </div>
+                        <UsersIdeas />
+                    </div>
+                )}
 
-            <h1 className="text-2xl font-extralight mb-4">All Project Ideas</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {data?.map((idea: IdeaType) => (
-                    <IdeaCard idea={idea} key={idea._id} />
-                ))}
+                <div className="space-y-10">
+                    <div className="flex items-center gap-3">
+                        <div className="h-8 w-1 bg-slate-200 rounded-full" />
+                        <h2 className="text-2xl font-bold text-slate-900">
+                            All Project Ideas
+                        </h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {data?.map((idea: IdeaType) => (
+                            <IdeaCard idea={idea} key={idea._id} />
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     )

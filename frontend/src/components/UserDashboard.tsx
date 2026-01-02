@@ -71,86 +71,125 @@ const UserDashboard = () => {
     }
 
     return (
-        <section className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
-            {metrics.map((m) => {
-                const Icon = m.icon
-                const value = valuesMap[m.key] || 0
-                return (
-                    <div
-                        key={m.label}
-                        className={`${m.color} p-6 rounded-xl flex items-start gap-4`}
-                    >
-                        <div className="p-3 bg-white rounded-full">
-                            <Icon className={`${m.textColor} w-6 h-6`} />
+        <div className="space-y-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {metrics.map((m) => {
+                    const Icon = m.icon
+                    const value = valuesMap[m.key] || 0
+                    return (
+                        <div
+                            key={m.label}
+                            className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-all group"
+                        >
+                            <div className="flex items-center gap-4">
+                                <div
+                                    className={`p-3 ${m.color} rounded-2xl group-hover:scale-110 transition-transform`}
+                                >
+                                    <Icon
+                                        className={`${m.textColor} w-6 h-6`}
+                                    />
+                                </div>
+                                <div>
+                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                                        {m.label}
+                                    </p>
+                                    <CountUp
+                                        start={0}
+                                        end={value}
+                                        duration={2}
+                                        separator=","
+                                        className="text-2xl font-bold text-slate-900"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <p className="text-sm text-gray-500">{m.label}</p>
-                            <CountUp
-                                start={0}
-                                end={value}
-                                duration={2}
-                                separator=","
-                                className={`text-2xl font-bold ${m.textColor}`}
-                            />
+                    )
+                })}
+            </div>
+
+            <div className="grid lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2 space-y-6">
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-bold text-slate-900">
+                            Recent Activity
+                        </h3>
+                        <Link
+                            to="/ideas"
+                            className="text-sm font-bold text-emerald-600 hover:text-emerald-700"
+                        >
+                            View all
+                        </Link>
+                    </div>
+                    <div className="space-y-4">
+                        {recentIdeas.length > 0 ? (
+                            recentIdeas.map((idea: any) => (
+                                <Link
+                                    key={idea._id}
+                                    to="/ideas/$ideasId"
+                                    params={{ ideasId: idea._id }}
+                                    className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-500/5 transition-all group"
+                                >
+                                    <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
+                                        <ClipboardList className="w-6 h-6" />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <h4 className="font-bold text-slate-900 truncate">
+                                            {idea.title}
+                                        </h4>
+                                        <p className="text-sm text-slate-500 flex items-center gap-2">
+                                            <Calendar className="w-3 h-3" />
+                                            {new Date(
+                                                idea.createdAt,
+                                            ).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                    <div className="text-right">
+                                        <div className="flex items-center gap-1 text-emerald-600 font-bold">
+                                            <Star className="w-4 h-4 fill-emerald-600" />
+                                            {idea.upvotes}
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))
+                        ) : (
+                            <div className="p-12 text-center bg-slate-50 rounded-[2rem] border border-dashed border-slate-200">
+                                <p className="text-slate-400">
+                                    No recent ideas found.
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="space-y-6">
+                    <h3 className="text-xl font-bold text-slate-900">
+                        Top Expertise
+                    </h3>
+                    <div className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm">
+                        <div className="flex flex-wrap gap-2">
+                            {topTags.length > 0 ? (
+                                topTags.map((tag: any) => (
+                                    <div
+                                        key={tag._id}
+                                        className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 text-sm font-medium flex items-center gap-2 hover:bg-emerald-50 hover:border-emerald-100 hover:text-emerald-700 transition-all cursor-default"
+                                    >
+                                        <Tag className="w-3 h-3" />
+                                        {tag._id}
+                                        <span className="text-xs opacity-50">
+                                            ({tag.count})
+                                        </span>
+                                    </div>
+                                ))
+                            ) : (
+                                <p className="text-slate-400 text-sm">
+                                    No tags yet.
+                                </p>
+                            )}
                         </div>
                     </div>
-                )
-            })}
-
-            {/* Top Tags */}
-            <div className="p-6 bg-white rounded-xl col-span-1 sm:col-span-2 lg:col-span-1">
-                <p className="text-sm text-gray-500 mb-3 flex items-center gap-2">
-                    <Tag className="w-5 h-5" /> Top Tags
-                </p>
-                {topTags.length === 0 ? (
-                    <p className="text-gray-400 text-sm">No tags yet.</p>
-                ) : (
-                    <ul className="flex flex-wrap gap-2">
-                        {topTags.map((t: any) => (
-                            <span
-                                key={t._id}
-                                className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm flex items-center gap-1"
-                            >
-                                {t._id}
-                                <span className="font-medium ml-1">
-                                    ({t.count})
-                                </span>
-                            </span>
-                        ))}
-                    </ul>
-                )}
+                </div>
             </div>
-
-            {/* Recent Ideas */}
-            <div className="p-6 bg-white rounded-xl col-span-1 sm:col-span-2 lg:col-span-1">
-                <p className="text-sm text-gray-500 mb-3 flex items-center gap-2">
-                    <Calendar className="w-5 h-5" /> Recent Ideas
-                </p>
-                {recentIdeas.length === 0 ? (
-                    <p className="text-gray-400 text-sm">No recent ideas.</p>
-                ) : (
-                    <ul className="divide-y divide-gray-100">
-                        {recentIdeas.map((idea: any) => (
-                            <Link
-                                to="/ideas/$ideasId"
-                                params={{ ideasId: idea._id }}
-                                key={idea._id}
-                                className="py-2 flex justify-between"
-                            >
-                                <span className="font-medium text-gray-800">
-                                    {idea.title}
-                                </span>
-                                <span className="text-gray-400 text-sm">
-                                    {new Date(
-                                        idea.createdAt,
-                                    ).toLocaleDateString()}
-                                </span>
-                            </Link>
-                        ))}
-                    </ul>
-                )}
-            </div>
-        </section>
+        </div>
     )
 }
 

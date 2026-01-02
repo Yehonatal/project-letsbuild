@@ -1,19 +1,89 @@
 @import 'tailwindcss';
 
+:root {
+    --page-bg: #f7f8fb;
+    --card: #ffffff;
+    --ink: #0f172a;
+    --muted: #4b5563;
+    --line: #e5e7eb;
+    --accent: #10b981;
+    --accent-2: #0ea5e9;
+}
+
 body {
-  @apply m-0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    @apply m-0;
+    font-family:
+        'Space Grotesk',
+        'Inter',
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        'Roboto',
+        'Oxygen',
+        'Ubuntu',
+        'Cantarell',
+        'Fira Sans',
+        'Droid Sans',
+        'Helvetica Neue',
+        sans-serif;
+    background-color: var(--page-bg);
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(34, 197, 94, 0.09),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 80% 0%,
+            rgba(14, 165, 233, 0.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.94),
+            rgba(247, 248, 251, 0.96)
+        );
 }
 
 code {
-  font-family:
-    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family:
+        source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+::selection {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--ink);
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+    backdrop-filter: blur(12px);
+}
+
+.soft-border {
+    border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.accent-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.08);
+    color: #065f46;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid rgba(16, 185, 129, 0.1);
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }

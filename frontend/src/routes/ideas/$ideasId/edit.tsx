@@ -48,6 +48,22 @@ function IdeaEditPage() {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
         const { name, value } = e.target
+        if (name === 'tags') {
+            const arr = String(value)
+                .split(',')
+                .map((t) => t.trim())
+                .filter(Boolean)
+            setFormData((prev) => ({ ...prev, tags: arr }))
+            return
+        }
+        if (name === 'techStack') {
+            const arr = String(value)
+                .split(',')
+                .map((t) => t.trim())
+                .filter(Boolean)
+            setFormData((prev) => ({ ...prev, techStack: arr }))
+            return
+        }
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
@@ -68,135 +84,186 @@ function IdeaEditPage() {
     }
 
     return (
-        <div className="px-4 py-14 max-w-6xl mx-auto">
-            <div className="flex justify-end">
-                <Link
-                    to="/ideas/$ideasId"
-                    params={{ ideasId }}
-                    className="text-blue-600 hover:underline mb-4 inline-flex items-center"
-                >
-                    <LucideArrowLeft size={25} className="inline-block mr-1" />
-                    Back to Details
-                </Link>
-            </div>
-
-            <div className="mb-6">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                    Edit Idea: {idea.title}
-                    {idea.verified && (
-                        <BadgeCheckIcon
-                            className="inline-block ml-2"
-                            color="green"
-                        />
-                    )}
-                </h1>
-                <p className="text-gray-600 text-sm">
-                    Update the fields and save your changes.
-                </p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <FormInput
-                    label="Title"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                />
-
-                <FormTextarea
-                    label="Summary"
-                    name="summary"
-                    value={formData.summary}
-                    onChange={handleChange}
-                    rows={2}
-                />
-
-                <div className="flex gap-4">
-                    <FormInput
-                        label="Difficulty"
-                        name="difficulty"
-                        value={formData.difficulty}
-                        onChange={handleChange}
-                    />
-                    <FormInput
-                        label="Estimated Time"
-                        name="estimatedTime"
-                        value={formData.estimatedTime}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <FormInput
-                    label="Tags (comma separated)"
-                    name="tags"
-                    value={formData.tags}
-                    onChange={handleChange}
-                />
-
-                <FormInput
-                    label="Tech Stack (comma separated)"
-                    name="techStack"
-                    value={formData.techStack}
-                    onChange={handleChange}
-                />
-
-                <FormTextarea
-                    label="Description"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    rows={6}
-                />
-
-                <FormInput
-                    label="Inspiration Link"
-                    name="inspirationLink"
-                    value={formData.inspirationLink}
-                    onChange={handleChange}
-                />
-
-                <div className="pt-4">
-                    <button
-                        type="submit"
-                        className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 shadow"
+        <div className="min-h-screen bg-[#fcfcfd] py-16">
+            <div className="max-w-4xl mx-auto px-4">
+                <div className="flex items-center justify-between mb-6">
+                    <Link
+                        to="/ideas/$ideasId"
+                        params={{ ideasId }}
+                        className="inline-flex items-center gap-3 rounded-2xl bg-white border border-slate-100 px-4 py-2 text-slate-700 hover:shadow transition"
                     >
-                        {isSubmitting ? 'saving ... ' : 'Save Changes'}
-                    </button>
+                        <LucideArrowLeft className="w-5 h-5" />
+                        Back to Details
+                    </Link>
+                    <div className="text-sm text-slate-500">Editing idea</div>
                 </div>
-            </form>
+
+                <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl p-8">
+                    <div className="mb-6">
+                        <h1 className="text-3xl lg:text-4xl font-extrabold text-slate-900 mb-2">
+                            Edit Idea: {idea.title}
+                            {idea.verified && (
+                                <BadgeCheckIcon className="inline-block ml-3 text-emerald-500 w-5 h-5" />
+                            )}
+                        </h1>
+                        <p className="text-slate-500 text-sm">
+                            Update the fields and save your changes.
+                        </p>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <FormInput
+                            label="Title"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleChange}
+                        />
+
+                        <FormTextarea
+                            label="Summary"
+                            name="summary"
+                            value={formData.summary}
+                            onChange={handleChange}
+                            rows={2}
+                        />
+
+                        <div className="flex gap-4">
+                            <FormSelect
+                                label="Difficulty"
+                                name="difficulty"
+                                value={formData.difficulty}
+                                onChange={handleChange}
+                                options={[
+                                    { label: 'Easy', value: 'easy' },
+                                    { label: 'Medium', value: 'medium' },
+                                    { label: 'Hard', value: 'hard' },
+                                ]}
+                            />
+                            <FormInput
+                                label="Estimated Time"
+                                name="estimatedTime"
+                                value={formData.estimatedTime}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <FormInput
+                            label="Tags (comma separated)"
+                            name="tags"
+                            value={
+                                Array.isArray(formData.tags)
+                                    ? formData.tags.join(', ')
+                                    : formData.tags
+                            }
+                            onChange={handleChange}
+                        />
+
+                        <FormInput
+                            label="Tech Stack (comma separated)"
+                            name="techStack"
+                            value={
+                                Array.isArray(formData.techStack)
+                                    ? formData.techStack.join(', ')
+                                    : formData.techStack
+                            }
+                            onChange={handleChange}
+                        />
+
+                        <FormTextarea
+                            label="Description"
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            rows={6}
+                        />
+
+                        <FormInput
+                            label="Inspiration Link"
+                            name="inspirationLink"
+                            value={formData.inspirationLink}
+                            onChange={handleChange}
+                        />
+
+                        <div className="pt-6 mt-6 border-t border-slate-50 flex items-center justify-between">
+                            <Link
+                                to="/ideas/$ideasId"
+                                params={{ ideasId }}
+                                className="px-6 py-3 rounded-2xl text-slate-600 hover:bg-slate-50 transition-all"
+                            >
+                                Cancel
+                            </Link>
+
+                            <button
+                                type="submit"
+                                className="px-8 py-3 rounded-2xl bg-slate-900 text-white font-bold hover:bg-slate-800 shadow-lg"
+                            >
+                                {isSubmitting ? 'Saving...' : 'Save Changes'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }
 
 function FormInput({ label, name, value, onChange }: any) {
+    const labelClass = 'text-sm font-bold text-slate-700 ml-1 mb-2 block'
+    const inputClass =
+        'w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none text-slate-900 placeholder:text-slate-400'
+
     return (
-        <div>
-            <label className="block text-sm font-medium text-gray-700">
-                {label}
-            </label>
+        <div className="w-full">
+            <label className={labelClass}>{label}</label>
             <input
                 type="text"
                 name={name}
                 value={value}
                 onChange={onChange}
-                className="mt-1 block px-4 py-2 w-full border border-gray-300 rounded-md bg-gray-50"
+                className={inputClass}
             />
         </div>
     )
 }
 
-function FormTextarea({ label, name, value, onChange, rows }: any) {
+function FormSelect({ label, name, value, onChange, options }: any) {
+    const labelClass = 'text-sm font-bold text-slate-700 ml-1 mb-2 block'
+    const inputClass =
+        'w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none text-slate-900 placeholder:text-slate-400'
+
     return (
-        <div>
-            <label className="block text-sm font-medium text-gray-700">
-                {label}
-            </label>
+        <div className="w-full">
+            <label className={labelClass}>{label}</label>
+            <select
+                name={name}
+                value={value}
+                onChange={onChange}
+                className={inputClass}
+            >
+                {options.map((opt: any) => (
+                    <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                    </option>
+                ))}
+            </select>
+        </div>
+    )
+}
+
+function FormTextarea({ label, name, value, onChange, rows }: any) {
+    const labelClass = 'text-sm font-bold text-slate-700 ml-1 mb-2 block'
+    const inputClass =
+        'w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none text-slate-900 placeholder:text-slate-400'
+
+    return (
+        <div className="w-full">
+            <label className={labelClass}>{label}</label>
             <textarea
                 name={name}
                 value={value}
                 onChange={onChange}
                 rows={rows}
-                className="mt-1 block px-4 py-2 w-full border border-gray-300 rounded-md bg-gray-50"
+                className={inputClass}
             />
         </div>
     )

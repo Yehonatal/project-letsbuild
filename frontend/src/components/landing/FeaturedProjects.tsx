@@ -26,60 +26,67 @@ const FeaturedProjects = () => {
     }
 
     return (
-        <section className="bg-white px-4">
-            <div data-aos="fade-up" data-aos-delay="100">
-                <h2 className="text-4xl font-bold  mb-6">
-                    Featured Project Ideas
-                </h2>
-
-                <p className="text-lg text-gray-600 mb-12 mx-auto">
-                    Each project below has earned its spot through a combination
-                    of community support, originality, and potential impact. We
-                    handpick these ideas to highlight inspiring work and
-                    innovative thinking from the developer community.
-                </p>
-
-                <div className="p-6 mb-14">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                        <Star className="w-5 h-5 text-yellow-500" /> What Makes
-                        an Idea Featured?
-                    </h3>
-                    <ul className="list-disc pl-6 text-gray-700 space-y-2">
-                        <li>
-                            <strong>Upvotes:</strong> Community interest plays a
-                            major role in surfacing great ideas.
-                        </li>
-                        <li>
-                            <strong>Creativity:</strong> Ideas that are unique,
-                            clever, or solve meaningful problems.
-                        </li>
-                        <li>
-                            <strong>Clarity:</strong> Well-written and
-                            thought-out descriptions, problem statements, and
-                            goals.
-                        </li>
-                        <li>
-                            <strong>Impact:</strong> Ideas with strong potential
-                            to be useful or widely adopted.
-                        </li>
-                        <li>
-                            <strong>Momentum:</strong> New submissions gaining
-                            rapid attention may also be included.
-                        </li>
-                    </ul>
-                </div>
-
-                {/* Featured Idea Cards */}
-                <div className="grid md:grid-cols-2 gap-6">
-                    {featuredIdeas.map((idea) => (
-                        <div key={idea._id}>
-                            <IdeaCard idea={idea} />
+        <section className="py-12">
+            <div
+                className="max-w-6xl mx-auto px-4"
+                data-aos="fade-up"
+                data-aos-delay="80"
+            >
+                <div className="space-y-12">
+                    <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-end">
+                        <div className="space-y-4">
+                            <div className="inline-flex items-center gap-2 rounded-full bg-amber-50 text-amber-700 px-3 py-1 text-xs font-bold border border-amber-100">
+                                <Star className="w-4 h-4 fill-amber-400 text-amber-400" />{' '}
+                                Curated spotlight
+                            </div>
+                            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
+                                Featured project ideas
+                            </h2>
+                            <p className="text-lg text-slate-600 max-w-2xl leading-relaxed">
+                                Handpicked concepts that blend originality,
+                                clarity, and community energy. Explore these to
+                                spark your next build or join forces with the
+                                creators.
+                            </p>
                         </div>
-                    ))}
+
+                        <div className="flex flex-wrap gap-4">
+                            {['Upvotes', 'Creativity', 'Clarity', 'Impact'].map(
+                                (tag) => (
+                                    <span
+                                        key={tag}
+                                        className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 text-sm font-medium"
+                                    >
+                                        {tag}
+                                    </span>
+                                ),
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {featuredIdeas.map((idea) => (
+                            <div key={idea._id} className="h-full">
+                                <IdeaCard idea={idea} />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>
     )
 }
+
+const Bullet = ({ title, body }: { title: string; body: string }) => (
+    <div className="flex gap-3 items-start">
+        <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white text-emerald-600 border border-slate-200 shadow-sm">
+            <Star className="w-4 h-4" />
+        </span>
+        <div>
+            <p className="font-semibold text-slate-900">{title}</p>
+            <p className="text-sm text-slate-600">{body}</p>
+        </div>
+    </div>
+)
 
 export default FeaturedProjects

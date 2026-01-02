@@ -31,9 +31,6 @@ export const Route = createFileRoute('/ideas/$ideasId/')({
     },
 })
 
-// 6891cf78539bb4db000e43a2
-// 6891cfc1539bb4db000e43ae
-
 function IdeasDetailsPage() {
     const navigate = useNavigate()
     const { user } = useAuth()
@@ -108,234 +105,228 @@ function IdeasDetailsPage() {
     }, [idea])
 
     return (
-        <div
-            data-aos="fade-zoom-in"
-            data-aos-delay="300"
-            className="px-4 py-8 max-w-6xl mx-auto "
-        >
-            {/* Title and Date */}
-            <Link
-                to="/ideas"
-                className="text-blue-600 hover:underline mb-4 inline-flex items-center"
-            >
-                <LucideArrowLeft
-                    size={25}
-                    color="black"
-                    className="inline-block"
-                />
-            </Link>
-            <div className="mb-4">
-                <div className="flex justify-between items-center mb-4 ">
-                    <h1 className="text-3xl font-bold text-gray-900">
-                        {idea.title}{' '}
-                        {idea.verified && (
-                            <span>
-                                <BadgeCheckIcon
-                                    color="green"
-                                    className="inline-block"
-                                />
-                            </span>
-                        )}
-                    </h1>
+        <div className="min-h-screen bg-[#fcfcfd] py-12 lg:py-20">
+            <div className="max-w-7xl mx-auto px-4">
+                <Link
+                    to="/ideas"
+                    className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors mb-12 group"
+                >
+                    <LucideArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+                    <span className="font-medium">Back to ideas</span>
+                </Link>
 
-                    {/* More menu button */}
-                    <div className="relative inline-block text-left">
-                        <button
-                            onClick={() => setOptionsOpen((o) => !o)}
-                            className="p-1 hover:bg-gray-200 rounded-full cursor-pointer"
-                        >
-                            <MoreVerticalIcon size={20} />
-                        </button>
-
-                        {isOptionsOpen && user && (
-                            <div
-                                ref={menuRef}
-                                className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-md shadow-md z-20"
-                            >
-                                <Link
-                                    to="/ideas/$ideasId/edit"
-                                    params={{ ideasId: idea._id }}
-                                >
+                <div className="grid lg:grid-cols-[1fr_320px] gap-16 items-start">
+                    <div className="space-y-12">
+                        <div className="space-y-6">
+                            <div className="flex justify-between items-start gap-4">
+                                <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-tight">
+                                    {idea.title}
+                                </h1>
+                                <div className="relative shrink-0">
                                     <button
-                                        disabled={
-                                            !user ||
-                                            !idea ||
-                                            user.id !== idea.user
+                                        onClick={() =>
+                                            setOptionsOpen((o) => !o)
                                         }
-                                        className={`w-full px-4 py-2 text-left cursor-pointer flex items-center gap-2 ${
-                                            !user ||
-                                            !idea ||
-                                            user.id !== idea.user
-                                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                                : 'hover:bg-gray-100 text-black'
-                                        }`}
+                                        className="p-2 hover:bg-slate-100 rounded-xl transition-colors"
                                     >
-                                        <FileEdit size={16} /> Edit
+                                        <MoreVerticalIcon className="w-6 h-6 text-slate-400" />
                                     </button>
-                                </Link>
-                                <button
-                                    onClick={handleDelete}
-                                    disabled={
-                                        !user || !idea || user.id !== idea?.user
-                                    }
-                                    className={`w-full px-4 py-2 text-left cursor-pointer flex items-center gap-2 ${
-                                        !user || !idea || user.id !== idea?.user
-                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                            : 'hover:bg-gray-100 text-black'
-                                    }`}
+
+                                    {isOptionsOpen && user && (
+                                        <div
+                                            ref={menuRef}
+                                            className="absolute right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-2xl shadow-slate-200/50 z-20 overflow-hidden"
+                                        >
+                                            <Link
+                                                to="/ideas/$ideasId/edit"
+                                                params={{ ideasId: idea._id }}
+                                                className={`w-full px-4 py-3 text-left flex items-center gap-3 text-sm font-medium transition-colors ${
+                                                    user.id !== idea.user
+                                                        ? 'bg-slate-50 text-slate-300 cursor-not-allowed'
+                                                        : 'hover:bg-slate-50 text-slate-700'
+                                                }`}
+                                            >
+                                                <FileEdit className="w-4 h-4" />{' '}
+                                                Edit idea
+                                            </Link>
+                                            <button
+                                                onClick={handleDelete}
+                                                disabled={
+                                                    user.id !== idea?.user
+                                                }
+                                                className={`w-full px-4 py-3 text-left flex items-center gap-3 text-sm font-medium transition-colors ${
+                                                    user.id !== idea?.user
+                                                        ? 'bg-slate-50 text-slate-300 cursor-not-allowed'
+                                                        : 'hover:bg-red-50 text-red-600'
+                                                }`}
+                                            >
+                                                <DeleteIcon className="w-4 h-4" />{' '}
+                                                Delete idea
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <p className="text-xl text-slate-600 leading-relaxed">
+                                {idea.summary}
+                            </p>
+
+                            <div className="flex flex-wrap gap-3">
+                                {idea.tags?.map(
+                                    (tag: string, index: number) => (
+                                        <span
+                                            key={index}
+                                            className="px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-sm font-bold border border-emerald-100"
+                                        >
+                                            #{tag}
+                                        </span>
+                                    ),
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="space-y-6">
+                            <h2 className="text-2xl font-bold text-slate-900">
+                                The Concept
+                            </h2>
+                            <div className="prose prose-slate max-w-none">
+                                <p className="text-slate-700 leading-relaxed whitespace-pre-line">
+                                    {idea.description}
+                                </p>
+                            </div>
+                        </div>
+
+                        {idea.techStack?.length > 0 && (
+                            <div className="space-y-6">
+                                <h2 className="text-2xl font-bold text-slate-900">
+                                    Tech Stack
+                                </h2>
+                                <div className="flex flex-wrap gap-3">
+                                    {idea.techStack.map(
+                                        (tech: string, index: number) => (
+                                            <span
+                                                key={index}
+                                                className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 text-sm font-medium"
+                                            >
+                                                {tech}
+                                            </span>
+                                        ),
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {idea.inspirationLink && (
+                            <div className="p-8 rounded-[2rem] bg-slate-900 text-white space-y-4">
+                                <h3 className="text-xl font-bold">
+                                    Inspiration
+                                </h3>
+                                <p className="text-slate-400 text-sm">
+                                    This idea was inspired by:
+                                </p>
+                                <a
+                                    href={idea.inspirationLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
                                 >
-                                    <DeleteIcon size={16} /> Delete
-                                </button>
+                                    {idea.inspirationLink}
+                                    <span className="text-xs">↗</span>
+                                </a>
                             </div>
                         )}
                     </div>
-                </div>
-            </div>
 
-            {/* Author */}
-            <div className="mb-8 pt-4 flex items-top gap-3">
-                {idea.author && (
-                    <>
-                        <div>
-                            {idea.author.avatarUrl && (
-                                <img
-                                    src={`${idea.author.avatarUrl || '/logo192.png'}`}
-                                    alt={idea.author.name.split(' ')[0][0]}
-                                    className="w-10 h-10 rounded-full object-cover"
-                                />
-                            )}
-                        </div>
-                        <div>
-                            {idea.author.name && (
-                                <p className="text-sm text-gray-800 font-medium">
-                                    {idea.author.name}
+                    <aside className="space-y-8 sticky top-8">
+                        <div className="p-8 rounded-[2rem] bg-white border border-slate-100 shadow-xl shadow-slate-200/50 space-y-8">
+                            <div className="space-y-4">
+                                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                                    Created by
                                 </p>
-                            )}
-                            {idea.author.githubUrl && (
-                                <a
-                                    href={idea.author.githubUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-xs text-blue-600 hover:underline"
-                                >
-                                    GitHub ↗
-                                </a>
-                            )}
+                                <div className="flex items-center gap-4">
+                                    <img
+                                        src={
+                                            idea.author?.avatarUrl ||
+                                            '/logo192.png'
+                                        }
+                                        alt={idea.author?.name}
+                                        className="w-12 h-12 rounded-full object-cover border-2 border-slate-50"
+                                    />
+                                    <div>
+                                        <p className="font-bold text-slate-900">
+                                            {idea.author?.name}
+                                        </p>
+                                        {idea.author?.githubUrl && (
+                                            <a
+                                                href={idea.author.githubUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-xs text-emerald-600 font-medium hover:underline"
+                                            >
+                                                GitHub Profile ↗
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-6 pt-6 border-t border-slate-50">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm text-slate-500">
+                                        Difficulty
+                                    </span>
+                                    <span className="px-3 py-1 rounded-lg bg-slate-50 text-slate-700 text-xs font-bold uppercase border border-slate-100">
+                                        {idea.difficulty}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm text-slate-500">
+                                        Est. Time
+                                    </span>
+                                    <span className="text-sm font-bold text-slate-900">
+                                        {idea.estimatedTime}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm text-slate-500">
+                                        Views
+                                    </span>
+                                    <span className="text-sm font-bold text-slate-900">
+                                        {idea.views}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-sm text-slate-500">
+                                        Upvotes
+                                    </span>
+                                    <span className="text-sm font-bold text-slate-900">
+                                        {idea.upvotes}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button className="w-full py-4 rounded-2xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-200">
+                                Upvote Idea
+                            </button>
                         </div>
-                    </>
-                )}
-                <p className="text-sm text-gray-500 ml-4">
-                    Posted on{' '}
-                    {new Date(idea.createdAt).toLocaleDateString(undefined, {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                    })}
-                </p>
-            </div>
 
-            {/* Summary */}
-            <p className="text-md text-gray-700 mb-4">{idea.summary}</p>
-
-            {/* Meta info: difficulty, time, views, votes */}
-            <div className="flex flex-wrap items-center text-sm text-gray-600 gap-3 mb-6">
-                <span
-                    data-aos="fade-zoom-in"
-                    data-aos-delay={100}
-                    className="px-3 py-1 rounded-full bg-gray-100 border border-gray-200"
-                >
-                    Difficulty: <strong>{idea.difficulty}</strong>
-                </span>
-                <span
-                    data-aos="fade-zoom-in"
-                    data-aos-delay={200}
-                    className="px-3 py-1 rounded-full bg-gray-100 border border-gray-200"
-                >
-                    ⏱ Estimated Time: {idea.estimatedTime}
-                </span>
-                <span
-                    data-aos="fade-zoom-in"
-                    data-aos-delay={300}
-                    className="px-3 py-1 rounded-full bg-gray-100 border border-gray-200"
-                >
-                    👁 Views: {idea.views}
-                </span>
-                <span
-                    data-aos="fade-zoom-in"
-                    data-aos-delay={400}
-                    className="px-3 py-1 rounded-full bg-gray-100 border border-gray-200"
-                >
-                    👍 Upvotes: {idea.upvotes}
-                </span>
-            </div>
-
-            {/* Tags */}
-            {idea.tags?.length > 0 && (
-                <div className="mb-6">
-                    <h3 className="font-semibold text-sm text-gray-700 mb-1">
-                        Tags:
-                    </h3>
-                    <ul className="flex flex-wrap gap-2">
-                        {idea.tags.map((tag: string, index: number) => (
-                            <li
-                                key={index}
-                                data-aos="fade-left"
-                                data-aos-delay={300 * index}
-                                className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded-full border border-blue-100"
-                            >
-                                #{tag}
-                            </li>
-                        ))}
-                    </ul>
+                        <div className="text-center">
+                            <p className="text-xs text-slate-400">
+                                Posted on{' '}
+                                {new Date(idea.createdAt).toLocaleDateString(
+                                    undefined,
+                                    {
+                                        year: 'numeric',
+                                        month: 'short',
+                                        day: 'numeric',
+                                    },
+                                )}
+                            </p>
+                        </div>
+                    </aside>
                 </div>
-            )}
-
-            {/* Tech Stack */}
-            {idea.techStack?.length > 0 && (
-                <div className="mb-6">
-                    <h3 className="font-semibold text-sm text-gray-700 mb-2">
-                        Tech Stack:
-                    </h3>
-                    <ul className="flex flex-wrap gap-2">
-                        {idea.techStack.map((tech: string, index: number) => (
-                            <li
-                                key={index}
-                                data-aos="fade-left"
-                                data-aos-delay={300 * index}
-                                className="text-xs bg-green-50 text-green-600 px-2 py-1 rounded-full border border-green-100"
-                            >
-                                {tech}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-
-            <div className="mb-6">
-                <h3 className="font-semibold text-sm text-gray-700 mb-1">
-                    Description:
-                </h3>
-                <p className="text-sm text-gray-800 whitespace-pre-line">
-                    {idea.description}
-                </p>
             </div>
-
-            {/* Inspiration link */}
-            {idea.inspirationLink && (
-                <div className="mb-6">
-                    <h3 className="font-semibold text-sm text-gray-700 mb-1">
-                        Inspiration:
-                    </h3>
-                    <a
-                        href={idea.inspirationLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline text-sm"
-                    >
-                        {idea.inspirationLink}
-                    </a>
-                </div>
-            )}
         </div>
     )
 }

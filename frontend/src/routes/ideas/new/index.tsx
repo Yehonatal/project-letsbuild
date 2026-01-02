@@ -142,221 +142,247 @@ export default function NewIdeaPage() {
     }
 
     const inputClass =
-        'w-full border border-gray-400 rounded px-3 py-2 bg-transparent focus:outline-none focus:border-gray-600'
-    const dashedClass = inputClass + ' border-dashed'
+        'w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none text-slate-900 placeholder:text-slate-400'
+    const labelClass = 'text-sm font-bold text-slate-700 ml-1 mb-2 block'
 
     return (
-        <div className="p-6 max-w-6xl mx-auto">
-            <div className="mb-6 flex justify-between items-center">
-                <div>
-                    <h1 className="text-2xl font-bold ">Submit a New Idea</h1>
-                    <p className="text-gray-600 mb-6">
-                        Share your innovative ideas with the community!
-                    </p>
-                </div>
-                <div>
-                    <Link to="/ideas" className="text-blue-600 hover:underline">
-                        <LucideArrowLeft
-                            size={25}
-                            color="blue"
-                            className="inline-block"
-                        />
+        <div className="min-h-screen bg-[#fcfcfd] py-6 lg:py-20">
+            <div className="max-w-4xl mx-auto px-4">
+                <div className="flex items-center justify-between mb-12">
+                    <div className="space-y-2">
+                        <h1 className="text-4xl font-bold text-slate-900 tracking-tight">
+                            Share your{' '}
+                            <span className="text-emerald-600">spark</span>
+                        </h1>
+                        <p className="text-slate-500">
+                            Fill in the details to share your idea with the
+                            community.
+                        </p>
+                    </div>
+                    <Link
+                        to="/ideas"
+                        className="p-3 rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-slate-900 hover:border-slate-200 transition-all shadow-sm"
+                    >
+                        <LucideArrowLeft className="w-6 h-6" />
                     </Link>
                 </div>
-            </div>
 
-            <div className="max-w-2xl mx-auto p-6">
-                <div className="flex items-center mb-8">
-                    <StepsProgress
-                        steps={steps}
-                        currentStep={step}
-                        onStepChange={(newStep: number) => setStep(newStep)}
-                    />
-                </div>
+                <div className="bg-white p-8 lg:p-6 rounded-[2.5rem] border border-slate-100 shadow-2xl shadow-slate-200/50">
+                    <div className="mb-6">
+                        <StepsProgress
+                            steps={steps}
+                            currentStep={step}
+                            onStepChange={(newStep: number) => setStep(newStep)}
+                        />
+                    </div>
 
-                {/* Step Form */}
-                <div className="space-y-6">
-                    {step === 0 && (
-                        <>
-                            <div>
-                                <label className="block font-medium mb-1">
-                                    Title
-                                </label>
-                                <input
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                    className={inputClass}
-                                />
-                            </div>
-                            <div>
-                                <label className="block font-medium mb-1">
-                                    Summary
-                                </label>
-                                <textarea
-                                    rows={2}
-                                    value={summary}
-                                    onChange={(e) => setSummary(e.target.value)}
-                                    className={inputClass}
-                                />
-                            </div>
-                            <div>
-                                <label className="block font-medium mb-1">
-                                    Description
-                                </label>
-                                <textarea
-                                    rows={4}
-                                    value={description}
-                                    onChange={(e) =>
-                                        setDescription(e.target.value)
-                                    }
-                                    className={inputClass}
-                                />
-                            </div>
-                        </>
-                    )}
-
-                    {step === 1 && (
-                        <>
-                            <div>
-                                <label className="block font-medium mb-1">
-                                    Tags
-                                </label>
-                                <input
-                                    placeholder="e.g. auth, ui"
-                                    value={tagsInput}
-                                    onChange={(e) =>
-                                        setTagsInput(e.target.value)
-                                    }
-                                    className={dashedClass}
-                                />
-                            </div>
-                            <div>
-                                <label className="block font-medium mb-1">
-                                    Difficulty
-                                </label>
-                                <select
-                                    value={difficulty}
-                                    onChange={(e) =>
-                                        setDifficulty(e.target.value as any)
-                                    }
-                                    className={inputClass}
-                                >
-                                    <option value="easy">Easy</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="hard">Hard</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label className="block font-medium mb-1">
-                                    Estimated Time
-                                </label>
-                                <input
-                                    placeholder="e.g. 2 weeks"
-                                    value={estimatedTime}
-                                    onChange={(e) =>
-                                        setEstimatedTime(e.target.value)
-                                    }
-                                    className={inputClass}
-                                />
-                            </div>
-                            <div>
-                                <label className="block font-medium mb-1">
-                                    Tech Stack
-                                </label>
-                                <input
-                                    placeholder="e.g. React, Node.js"
-                                    value={techStackInput}
-                                    onChange={(e) =>
-                                        setTechStackInput(e.target.value)
-                                    }
-                                    className={dashedClass}
-                                />
-                            </div>
-                        </>
-                    )}
-
-                    {step === 2 && (
-                        <>
-                            <div>
-                                <label className="block font-medium mb-1">
-                                    Your Name
-                                </label>
-                                <input
-                                    value={authorName}
-                                    onChange={(e) =>
-                                        setAuthorName(e.target.value)
-                                    }
-                                    className={inputClass}
-                                />
-                            </div>
-                            <div>
-                                <label className="block font-medium mb-1">
-                                    Avatar
-                                </label>
-                                <div
-                                    className="relative w-full h-32 border border-dashed border-gray-400 rounded flex items-center justify-center"
-                                    onDrop={onDrop}
-                                    onDragOver={(e) => e.preventDefault()}
-                                >
-                                    {avatarFile
-                                        ? avatarFile.name
-                                        : 'Drag & drop or click to select (optional)'}
+                    <div className="space-y-8">
+                        {step === 0 && (
+                            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                <div className="space-y-2">
+                                    <label className={labelClass}>Title</label>
                                     <input
-                                        type="file"
-                                        accept="image/*"
-                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                        onChange={onFileSelect}
+                                        value={title}
+                                        onChange={(e) =>
+                                            setTitle(e.target.value)
+                                        }
+                                        className={inputClass}
+                                        placeholder="A catchy name for your idea"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className={labelClass}>
+                                        Summary
+                                    </label>
+                                    <textarea
+                                        rows={2}
+                                        value={summary}
+                                        onChange={(e) =>
+                                            setSummary(e.target.value)
+                                        }
+                                        className={inputClass}
+                                        placeholder="Briefly describe the core concept"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className={labelClass}>
+                                        Full Description
+                                    </label>
+                                    <textarea
+                                        rows={6}
+                                        value={description}
+                                        onChange={(e) =>
+                                            setDescription(e.target.value)
+                                        }
+                                        className={inputClass}
+                                        placeholder="Go into detail about the problem and solution"
                                     />
                                 </div>
                             </div>
-                            <div className="flex items-center gap-2 ">
-                                <div className="flex-1">
-                                    <label className="block font-medium mb-1">
-                                        GitHub URL
-                                    </label>
+                        )}
+
+                        {step === 1 && (
+                            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                <div className="space-y-2">
+                                    <label className={labelClass}>Tags</label>
                                     <input
-                                        placeholder="optional"
-                                        value={authorGithub}
+                                        placeholder="e.g. auth, ui, database (comma separated)"
+                                        value={tagsInput}
                                         onChange={(e) =>
-                                            setAuthorGithub(e.target.value)
+                                            setTagsInput(e.target.value)
                                         }
                                         className={inputClass}
                                     />
                                 </div>
-                                <div className="flex-1">
-                                    <label className="block font-medium mb-1">
-                                        Inspiration Link
+                                <div className="grid sm:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <label className={labelClass}>
+                                            Difficulty
+                                        </label>
+                                        <select
+                                            value={difficulty}
+                                            onChange={(e) =>
+                                                setDifficulty(
+                                                    e.target.value as any,
+                                                )
+                                            }
+                                            className={inputClass}
+                                        >
+                                            <option value="easy">Easy</option>
+                                            <option value="medium">
+                                                Medium
+                                            </option>
+                                            <option value="hard">Hard</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className={labelClass}>
+                                            Estimated Time
+                                        </label>
+                                        <input
+                                            placeholder="e.g. 2 weeks"
+                                            value={estimatedTime}
+                                            onChange={(e) =>
+                                                setEstimatedTime(e.target.value)
+                                            }
+                                            className={inputClass}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className={labelClass}>
+                                        Tech Stack
                                     </label>
                                     <input
-                                        placeholder="optional"
-                                        value={inspirationLink}
+                                        placeholder="e.g. React, Node.js, Tailwind (comma separated)"
+                                        value={techStackInput}
                                         onChange={(e) =>
-                                            setInspirationLink(e.target.value)
+                                            setTechStackInput(e.target.value)
                                         }
                                         className={inputClass}
                                     />
                                 </div>
                             </div>
-                        </>
-                    )}
-                </div>
+                        )}
 
-                {/* Navigation Buttons */}
-                <div className="flex justify-between items-center mt-8">
-                    <button
-                        type="button"
-                        onClick={handleBack}
-                        className="px-8 cursor-pointer py-1 border border-dashed border-gray-600 rounded"
-                    >
-                        {step === 0 ? 'Cancel' : 'Back'}
-                    </button>
-                    <button
-                        type="button"
-                        onClick={handleNext}
-                        className="px-8 py-1 cursor-pointer bg-black text-white rounded hover:bg-gray-800 transition"
-                    >
-                        {step === steps.length - 1 ? 'Submit' : 'Next'}
-                    </button>
+                        {step === 2 && (
+                            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                <div className="space-y-2">
+                                    <label className={labelClass}>
+                                        Your Name
+                                    </label>
+                                    <input
+                                        value={authorName}
+                                        onChange={(e) =>
+                                            setAuthorName(e.target.value)
+                                        }
+                                        className={inputClass}
+                                        placeholder="How should we credit you?"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className={labelClass}>Avatar</label>
+                                    <div
+                                        className="relative w-full h-40 border-2 border-dashed border-slate-100 rounded-2xl flex flex-col items-center justify-center bg-slate-50 hover:bg-slate-100 hover:border-emerald-200 transition-all cursor-pointer group"
+                                        onDrop={onDrop}
+                                        onDragOver={(e) => e.preventDefault()}
+                                    >
+                                        <div className="text-slate-400 group-hover:text-emerald-600 transition-colors text-center p-4">
+                                            {avatarFile ? (
+                                                <span className="font-bold text-emerald-600">
+                                                    {avatarFile.name}
+                                                </span>
+                                            ) : (
+                                                <>
+                                                    <p className="font-bold">
+                                                        Click or drag to upload
+                                                    </p>
+                                                    <p className="text-xs mt-1">
+                                                        PNG, JPG up to 5MB
+                                                    </p>
+                                                </>
+                                            )}
+                                        </div>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                            onChange={onFileSelect}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="grid sm:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <label className={labelClass}>
+                                            GitHub URL
+                                        </label>
+                                        <input
+                                            placeholder="https://github.com/..."
+                                            value={authorGithub}
+                                            onChange={(e) =>
+                                                setAuthorGithub(e.target.value)
+                                            }
+                                            className={inputClass}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className={labelClass}>
+                                            Inspiration Link
+                                        </label>
+                                        <input
+                                            placeholder="Link to related project"
+                                            value={inspirationLink}
+                                            onChange={(e) =>
+                                                setInspirationLink(
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className={inputClass}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="flex justify-between items-center mt-12 pt-8 border-t border-slate-50">
+                        <button
+                            type="button"
+                            onClick={handleBack}
+                            className="px-8 py-4 rounded-2xl text-slate-500 font-bold hover:bg-slate-50 transition-all"
+                        >
+                            {step === 0 ? 'Cancel' : 'Back'}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleNext}
+                            className="px-10 py-4 rounded-2xl bg-slate-900 text-white font-bold hover:bg-slate-800 hover:shadow-xl hover:shadow-slate-200 transition-all"
+                        >
+                            {step === steps.length - 1
+                                ? 'Submit Idea'
+                                : 'Continue'}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

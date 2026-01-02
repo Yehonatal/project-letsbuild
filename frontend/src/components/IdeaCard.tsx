@@ -6,104 +6,96 @@ const IdeaCard = ({ idea }: { idea: IdeaType }) => {
     return (
         <div
             data-aos="fade-up"
-            // data-aos-delay={100 * Number(idea.id)}
             key={idea.id}
-            className="border border-dashed relative cursor-pointer border-gray-300 rounded-lg p-4 bg-white shadow-sm hover:shadow-md hover:bg-gray-50 transition-shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300"
+            className="group relative flex flex-col h-full rounded-[2rem] border border-slate-100 bg-white p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/10 hover:-translate-y-1 focus-within:ring-2 focus-within:ring-emerald-500/20"
         >
-            <Link to="/ideas/$ideasId" params={{ ideasId: idea._id }}>
-                <div className="mb-2">
-                    <div className="flex items-center gap-2">
-                        <h2 className="text-lg font-bold text-gray-900">
-                            {idea.title}
-                        </h2>
-                        {idea.verified && (
-                            <span>
-                                <BadgeCheckIcon
-                                    color="green"
-                                    size={16}
-                                    className="inline-block"
-                                />
-                            </span>
-                        )}
+            <Link
+                to="/ideas/$ideasId"
+                params={{ ideasId: idea._id }}
+                className="flex-1 flex flex-col"
+            >
+                <div className="flex justify-between items-start mb-4">
+                    <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                            <h2 className="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                                {idea.title}
+                            </h2>
+                            {idea.verified && (
+                                <BadgeCheckIcon className="w-5 h-5 text-emerald-500" />
+                            )}
+                        </div>
+                        <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                            {new Date(idea.createdAt).toLocaleDateString(
+                                undefined,
+                                {
+                                    month: 'short',
+                                    day: 'numeric',
+                                    year: 'numeric',
+                                },
+                            )}
+                        </p>
                     </div>
-                    <p className="text-sm text-gray-500">
-                        {new Date(idea.createdAt).toLocaleDateString(
-                            undefined,
-                            {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric',
-                            },
-                        )}
-                    </p>
                 </div>
 
-                <p className="text-sm text-gray-700 mb-2 line-clamp-3">
+                <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3">
                     {idea.summary}
                 </p>
 
-                <div className="flex flex-wrap items-center text-xs text-gray-600 gap-x-3 gap-y-1 mb-3">
-                    <span className="px-2 py-0.5 rounded-full bg-gray-100 border border-gray-200">
-                        {idea.difficulty.toUpperCase()}
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full bg-gray-100 border border-gray-200">
-                        ⏱ {idea.estimatedTime}
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full bg-gray-100 border border-gray-200">
-                        👁 {idea.views}
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full bg-gray-100 border border-gray-200">
-                        👍 {idea.upvotes}
-                    </span>
+                <div className="flex flex-wrap gap-2 mb-6">
+                    {idea.tags.slice(0, 3).map((tag, id) => (
+                        <span
+                            key={id}
+                            className="px-3 py-1 rounded-lg bg-slate-50 text-slate-600 text-[11px] font-bold uppercase tracking-tight border border-slate-100 group-hover:bg-emerald-50 group-hover:text-emerald-700 group-hover:border-emerald-100 transition-colors"
+                        >
+                            #{tag}
+                        </span>
+                    ))}
                 </div>
 
-                {idea.tags.length > 0 && (
-                    <ul className="flex flex-wrap gap-2 mb-3">
-                        {idea.tags.map((tag, id) => (
-                            <li
-                                key={id}
-                                className="text-xs bg-green-50 text-green-600 px-2 py-1 rounded-full border border-green-100"
-                            >
-                                #{tag}
-                            </li>
-                        ))}
-                    </ul>
-                )}
-
-                {idea.techStack.length > 0 && (
-                    <div className="text-xs text-gray-500 mb-10">
-                        <strong className="text-gray-700">Tech Stack:</strong>{' '}
-                        {idea.techStack.join(', ')}
+                <div className="grid grid-cols-2 gap-3 mb-8">
+                    <div className="p-3 rounded-xl bg-slate-50/50 border border-slate-100/50">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">
+                            Difficulty
+                        </p>
+                        <p className="text-xs font-semibold text-slate-700">
+                            {idea.difficulty}
+                        </p>
                     </div>
-                )}
+                    <div className="p-3 rounded-xl bg-slate-50/50 border border-slate-100/50">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">
+                            Time
+                        </p>
+                        <p className="text-xs font-semibold text-slate-700">
+                            {idea.estimatedTime}
+                        </p>
+                    </div>
+                </div>
             </Link>
-            {idea.author && (
-                <div className="flex border-dashed border-gray-200 items-center justify-between mt-auto pt-2 border-t absolute bottom-2 left-2 right-2">
-                    <div className="flex items-center gap-2">
+
+            <div className="flex items-center justify-between pt-4 border-t border-slate-50">
+                <div className="flex items-center gap-2">
+                    <div className="relative">
                         <img
                             src={`${idea.author ? idea.author.avatarUrl : '/logo192.png'}`}
                             alt={idea.author ? idea.author.name : idea.title}
-                            className="w-6 h-6 rounded-full object-cover"
+                            className="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm"
                         />
-                        <span className="text-sm text-gray-700">
-                            {idea.author ? idea.author.name : 'non'}
+                        <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full" />
+                    </div>
+                    <span className="text-sm font-medium text-slate-700">
+                        {idea.author ? idea.author.name : 'Anonymous'}
+                    </span>
+                </div>
+
+                <div className="flex items-center gap-3 text-slate-400">
+                    <div className="flex items-center gap-1">
+                        <span className="text-xs font-bold">
+                            👍 {idea.upvotes}
                         </span>
                     </div>
-
-                    {idea.inspirationLink && (
-                        <a
-                            href={idea.inspirationLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs text-blue-500 hover:underline"
-                        >
-                            Inspiration ↗
-                        </a>
-                    )}
                 </div>
-            )}
+            </div>
         </div>
     )
 }
-
 export default IdeaCard
