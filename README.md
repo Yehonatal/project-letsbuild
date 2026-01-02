@@ -4,7 +4,12 @@
 
 The platform is designed to help individuals and teams turn sparks of inspiration into discoverable, ranked, and discussed contributions. Built with a carefully selected tech stack, letsBuild emphasizes responsiveness, developer-friendly patterns, and clean design.
 
-![homepage](/frontend//public/homepage.png)
+![letsBuild homepage screenshot](frontend/preview/homepage.png)
+![letsBuild new idea screenshot](frontend/preview/ideaspage.png)
+![letsBuild idea detail screenshot](frontend/preview/ideapage.png)
+![letsBuild profile screenshot](frontend/preview/profilepage.png)
+
+
 
 ##  Core Features
 
